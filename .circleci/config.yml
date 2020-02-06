@@ -1,19 +1,20 @@
 version: 2.0
 
-commands:
-  sayhello:
-    description: "A very simple command for demonstration purposes"
-    parameters:
-      to:
-        type: string
-        default: "Hello World"
-    steps:
-      - run: echo << parameters.to >>
+#commands:
+#  sayhello:
+#    description: "A very simple command for demonstration purposes"
+#    parameters:
+#      to:
+#        type: string
+#        default: "Hello World"
+#    steps:
+#      - run: echo << parameters.to >>
 
 jobs:
   build:
-    docker:
-      - image: circleci/node:9.6.1
+    machine: ubuntu-1604:201903-01
+#    docker:
+#      - image: circleci/node:9.6.1
     steps:
       - run: echo 'hi'
       - sayhello
