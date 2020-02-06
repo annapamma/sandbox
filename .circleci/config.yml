@@ -5,13 +5,19 @@ jobs:
     docker:
       - image: circleci/node:9.6.1
     steps:
-      - run: echo 'hi'
+      - run: echo 'runs when PR is made'
+  do-not-build-on-pr-a:
+    docker:
+      - image: circleci/node:9.6.1
+    steps:
+      - run: echo 'shouldn't have built'
 
 workflows:
   ignore-pr-b: # this should not be added as a check to pr-a
     jobs:
-      - build:
-          filters:
-            branches:
-              ignore:
-                - pr-a
+      - build
+      - do-not-build-on-pr-a:
+        filters:
+          branches:
+            ignore:
+              - pr-a
