@@ -1,23 +1,17 @@
 version: 2.1
 
 jobs:
-  build:
+  unit_tests:
     docker:
       - image: circleci/node:9.6.1
     steps:
-      - run: echo 'runs when PR is made'
-  do-not-build-on-pr-a:
-    docker:
-      - image: circleci/node:9.6.1
-    steps:
-      - run: echo "should not have built"
+      - run: echo 'runs when PR is made on any other branch but not on branch "automation'
 
 workflows:
-  ignore-pr-b: # this should not be added as a check to pr-a
+  build: # this should not be added as a check to pr-a
     jobs:
-      - build
-      - do-not-build-on-pr-a:
-        filters:
-          branches:
-            ignore:
-              - pr-a
+      - unit_tests:
+          filters:
+            branches:
+              ignore:
+                - /automation.*/
