@@ -10,7 +10,7 @@ jobs:
     docker:
       - image: circleci/node:9.6.1
     steps:
-      - run: echo 'shouldn't have built'
+      - run: echo "should not have built"
 
 workflows:
   ignore-pr-b: # this should not be added as a check to pr-a
