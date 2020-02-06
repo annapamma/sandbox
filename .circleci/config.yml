@@ -6,3 +6,12 @@ jobs:
       - image: circleci/node:9.6.1
     steps:
       - run: echo 'hi'
+
+workflows:
+  ignore-pr-b: # this should not be added as a check to pr-a
+    jobs:
+      - build:
+          filters:
+            branches:
+              ignore:
+                - pr-a
