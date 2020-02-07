@@ -1,9 +1,9 @@
 version: 2.1
 
 parameters:
-  checking:
+  build-api:
     type: boolean
-    default: true
+    default: false
 
 jobs:
   build:
@@ -14,8 +14,7 @@ jobs:
 
 
 workflows:
-  build:
-    when: << pipeline.parameters.checking >>
+  build-chron:
     triggers:
       - schedule:
           cron: "0 0 * * *"
@@ -23,5 +22,9 @@ workflows:
             branches:
               only:
                 - master
+    jobs:
+      - build
+  build-api:
+    when: << pipeline.parameters.build-api >>
     jobs:
       - build
