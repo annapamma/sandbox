@@ -1,14 +1,9 @@
-version: 2.0
+version: 2.1
 
-#commands:
-#  sayhello:
-#    description: "A very simple command for demonstration purposes"
-#    parameters:
-#      to:
-#        type: string
-#        default: "Hello World"
-#    steps:
-#      - run: echo << parameters.to >>
+parameters:
+  checking:
+    type: boolean
+    default: true
 
 jobs:
   build:
@@ -19,8 +14,8 @@ jobs:
 
 
 workflows:
-  version: 2
   build:
+    when: << pipeline.parameters.checking >>
     triggers:
       - schedule:
           cron: "0 0 * * *"
