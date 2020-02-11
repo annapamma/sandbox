@@ -10,7 +10,6 @@ jobs:
       - restore_cache:
           keys:
             - dependency-cache-{{ checksum "yarn.lock" }}
-            - dependency-cache-
       - run: yarn install
       - save_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
@@ -38,5 +37,8 @@ workflows:
 # workflows: https://circleci.com/gh/annapamma/sandbox/186
 # parallelism: https://circleci.com/gh/annapamma/sandbox/189
 # resource classes: https://circleci.com/gh/annapamma/sandbox/191
-# caching: https://circleci.com/gh/annapamma/sandbox/192
+# caching:
+  # before:
+  # after:
+  # https://circleci.com/gh/annapamma/sandbox/192
 # bonus: reusable config
