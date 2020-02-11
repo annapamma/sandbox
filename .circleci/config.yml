@@ -4,41 +4,9 @@ jobs:
   build:
     docker:
       - image: circleci/node:9.6.1
-    resource_class: small
     steps:
-      - checkout
-#      - restore_cache:
-#          keys:
-#            - dependency-cache-{{ checksum "yarn.lock" }}
-      - run: echo 'hi'
-#      - save_cache:
-#          key: dependency-cache-{{ checksum "yarn.lock" }}
-#          paths:
-#            - ./node_modules
-  test:
-    docker:
-      - image: circleci/node:9.6.1
-    steps:
-      - checkout
-      - run: echo 'i am running A LOT OF tests'
+      - run: echo "hello world"
 
-workflows:
-  build-then-test:
-    jobs:
-      - build
-      - test:
-          requires:
-            - build
-#  build-cron:
-#    triggers:
-#      - schedule:
-#          cron: "* * * * *"
-#          filters:
-#            branches:
-#              only:
-#                - master
-#    jobs:
-#      - build
 
 # follow project
 # checkout
