@@ -9,7 +9,7 @@ jobs:
       - run: echo 'i am building'
   test:
     docker:
-      - image: circleci/node.9.6.1
+      - image: circleci/node:9.6.1
     steps:
       - checkout
       - run: echo 'i am running tests'
