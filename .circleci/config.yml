@@ -38,5 +38,5 @@ workflows:
 # workflows: https://circleci.com/gh/annapamma/sandbox/186
 # parallelism: https://circleci.com/gh/annapamma/sandbox/189
 # resource classes: https://circleci.com/gh/annapamma/sandbox/191
-# caching:
+# caching: https://circleci.com/gh/annapamma/sandbox/192
 # bonus: reusable config
