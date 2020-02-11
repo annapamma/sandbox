@@ -4,9 +4,10 @@ jobs:
   build:
     docker:
       - image: circleci/node:9.6.1
+    resource_class: large
     steps:
       - checkout
-      - run: echo 'i am building'
+      - run: echo 'i am building and it requires a ton of memory'
   test:
     docker:
       - image: circleci/node:9.6.1
@@ -27,7 +28,7 @@ workflows:
 # checkout
 # hello world
 # jobs
-# parallelism
-# resource classes
-# workflows
+# parallelism: https://circleci.com/gh/annapamma/sandbox/189
+# resource classes:
+# workflows: https://circleci.com/gh/annapamma/sandbox/186
 # caching
