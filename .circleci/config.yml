@@ -29,16 +29,17 @@ workflows:
       - test:
           requires:
             - build
-  build-cron:
-    triggers:
-      - schedule:
-          cron: "* * * * *"
-          filters:
-            branches:
-              only:
-                - master
-    jobs:
-      - build
+#  build-cron:
+#    triggers:
+#      - schedule:
+#          cron: "* * * * *"
+#          filters:
+#            branches:
+#              only:
+#                - master
+#    jobs:
+#      - build
+
 # follow project
 # checkout
 # jobs
