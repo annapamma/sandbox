@@ -4,10 +4,18 @@ jobs:
   build:
     docker:
       - image: circleci/node:9.6.1
-    resource_class: large
+    resource_class: small
     steps:
       - checkout
-      - run: echo 'i am building and it requires a ton of memory'
+      - restore_cache:
+          keys:
+            - dependency-cache-{{ checksum "yarn.lock" }}
+            - dependency-cache-
+      - run: yarn install
+      - save_cache:
+          key: dependency-cache-{{ checksum "yarn.lock" }}
+          paths:
+            - ./node_modules
   test:
     docker:
       - image: circleci/node:9.6.1
@@ -26,9 +34,9 @@ workflows:
 
 # follow project
 # checkout
-# hello world
 # jobs
-# parallelism: https://circleci.com/gh/annapamma/sandbox/189
-# resource classes:
 # workflows: https://circleci.com/gh/annapamma/sandbox/186
-# caching
+# parallelism: https://circleci.com/gh/annapamma/sandbox/189
+# resource classes: https://circleci.com/gh/annapamma/sandbox/191
+# caching:
+# bonus: reusable config
