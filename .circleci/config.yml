@@ -4,17 +4,29 @@ jobs:
   build:
     docker:
       - image: circleci/node:9.6.1
-    parallelism: 3
     steps:
       - checkout
-      - run: echo 'hello world'
+      - run: echo 'i am building'
+  test:
+    docker:
+      - image: circleci/node.9.6.1
+    steps:
+      - checkout
+      - run: echo 'i am running tests'
+
+workflows:
+  build-then-test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
 
 # follow project
 # checkout
 # hello world
 # jobs
-# workflows
 # parallelism
 # resource classes
+# workflows
 # caching
-# save artifacts
