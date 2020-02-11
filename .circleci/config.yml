@@ -10,9 +10,10 @@ jobs:
   test:
     docker:
       - image: circleci/node:9.6.1
+    parellelism: 3
     steps:
       - checkout
-      - run: echo 'i am running tests'
+      - run: echo 'i am running A LOT OF tests'
 
 workflows:
   build-then-test:
