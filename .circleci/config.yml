@@ -4,6 +4,7 @@ jobs:
   build:
     docker:
       - image: circleci/node:9.6.1
+    parallelism: 3
     steps:
       - checkout
       - run: echo 'hello world'
