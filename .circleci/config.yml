@@ -2,8 +2,8 @@ version: 2.1
 
 jobs:
   build:
-    docker:
-      - image: circleci/python:3.6
+    macos:
+      xcode: "10.0.0"
     steps:
       - checkout
       - run: exit 0
