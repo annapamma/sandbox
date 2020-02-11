@@ -32,7 +32,7 @@ workflows:
   build-cron:
     triggers:
       - schedule:
-          cron: "0,1 * * * *"
+          cron: "* * * * *"
           filters:
             branches:
               only:
