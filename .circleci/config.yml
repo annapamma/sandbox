@@ -5,6 +5,7 @@ jobs:
     macos:
       xcode: "10.0.0"
     steps:
+      - checkout
       - run: exit 0
 
 workflows:
