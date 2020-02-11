@@ -9,10 +9,10 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-dependency-cache-{{ checksum "yarn.lock" }}
+            - dependency-cache-{{ checksum "yarn.lock" }}
       - run: yarn install
       - save_cache:
-          key: v1-dependency-cache-{{ checksum "yarn.lock" }}
+          key: dependency-cache-{{ checksum "yarn.lock" }}
           paths:
             - ./node_modules
   test:
@@ -30,6 +30,10 @@ workflows:
       - test:
           requires:
             - build
+  build-cron:
+    triggers:
+      - schedule:
+          cron: */5 * * * *
 
 # follow project
 # checkout
@@ -37,8 +41,5 @@ workflows:
 # workflows: https://circleci.com/gh/annapamma/sandbox/186
 # parallelism: https://circleci.com/gh/annapamma/sandbox/189
 # resource classes: https://circleci.com/gh/annapamma/sandbox/191
-# caching:
-  # before:
-  # after:
-  # https://circleci.com/gh/annapamma/sandbox/192
+# caching: https://circleci.com/gh/annapamma/sandbox/192
 # bonus: reusable config
