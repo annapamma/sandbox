@@ -22,6 +22,8 @@ jobs:
              py.test --verbose --junit-xml test-reports/results.xml sources/test_calc.py
       - store_test_results:
           path: test-reports
+      - store_artifacts:
+          path: test-reports/results.xml
 
 workflows:
   full_workflow:
