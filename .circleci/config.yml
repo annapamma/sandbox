@@ -18,9 +18,10 @@ jobs:
   test:
     docker:
       - image: circleci/node:9.6.1
+    parallelism: 3
     steps:
       - checkout
-      - run: echo 'running tests'
+      - run: echo 'running A LOT OF tests'
 
 workflows:
    build-then-test:
@@ -30,10 +31,14 @@ workflows:
             requires:
               - build
 
+
 # following a project on CircleCI
 # jobs: hello world
 # https://circleci.com/gh/annapamma/sandbox/228
 # workflows: build - then test
 # https://circleci.com/workflow-run/776f8602-281f-42a2-a2a7-fd443c77f444
-#
+# caching dependencies
+# before: https://circleci.com/gh/annapamma/sandbox/178
+# after: https://circleci.com/gh/annapamma/sandbox/231
 # parallel: timing data
+#
