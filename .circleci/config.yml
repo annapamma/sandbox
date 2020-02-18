@@ -6,7 +6,14 @@ jobs:
       - image: circleci/node:9.6.1
     steps:
       - checkout
-      - run: echo 'hello world!'
+      - restore_cache:
+          keys:
+            - dependency-cache-{{ checksum "yarn.lock" }}
+      - run: yarn install
+      - save_cache:
+          key: dependency-cache-{{ checksum "yarn.lock" }}
+          paths:
+            - ./node_modules
 
   test:
     docker:
@@ -22,7 +29,11 @@ workflows:
         - test:
             requires:
               - build
+
 # following a project on CircleCI
 # jobs: hello world
+# https://circleci.com/gh/annapamma/sandbox/228
 # workflows: build - then test
+# https://circleci.com/workflow-run/776f8602-281f-42a2-a2a7-fd443c77f444
+#
 # parallel: timing data
