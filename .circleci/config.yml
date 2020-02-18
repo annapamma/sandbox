@@ -2,13 +2,31 @@ version: 2.1
 
 jobs:
   build:
-    macos:
-      xcode: "10.0.0"
+    docker:
+      - image: python:2-alpine
     steps:
       - checkout
-      - run: exit 0
+      - run:
+          name: Build steps
+          command: |
+            python -m py_compile sources/add2vals.py sources/calc.py
+
+  test:
+    docker:
+      - image: qnib/pytest
+    steps:
+      - checkout
+      - run:
+           name: Run Tests
+           command: |
+             py.test --verbose --junit-xml test-reports/results.xml sources/test_calc.py
+      - store_test_results:
+          path: test-reports
 
 workflows:
-  build-then-test:
+  full_workflow:
     jobs:
       - build
+      - test:
+          requires:
+            - build
