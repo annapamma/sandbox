@@ -8,6 +8,20 @@ jobs:
       - checkout
       - run: echo 'hello world!'
 
+  test:
+    docker:
+      - image: circleci/node:9.6.1
+    steps:
+      - checkout
+      - run: echo 'running tests'
+
+workflows:
+   build-then-test:
+      jobs:
+        - build
+        - test:
+            requires:
+              - build
 # following a project on CircleCI
 # jobs: hello world
 # workflows: build - then test
