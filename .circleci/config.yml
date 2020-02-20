@@ -1,44 +1,22 @@
 version: 2.1
 
 jobs:
-  build:
+  add-pr-comment:
     docker:
       - image: circleci/node:9.6.1
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - dependency-cache-{{ checksum "yarn.lock" }}
-      - run: yarn install
-      - save_cache:
-          key: dependency-cache-{{ checksum "yarn.lock" }}
-          paths:
-            - ./node_modules
-
-  test:
-    docker:
-      - image: circleci/node:9.6.1
-    parallelism: 3
-    steps:
-      - checkout
-      - run: echo 'running A LOT OF tests'
+      - run: |
+          PR=`basename ${CIRCLE_PULL_REQUEST}`
+          curl --location --request POST "https://api.github.com/repos/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/issues/${PR}/comments" \
+          --header 'Accept: application/vnd.github.comfort-fade-preview+json' \
+          --header "Authorization: token ${GH_TOKEN}" \
+          --header 'Content-Type: application/json' \
+          -d '{
+            "body": "This is a comment. You can put your codecov percent here."
+          }'
 
 workflows:
-   build-then-test:
+   demo-adding-pr-comment:
       jobs:
-        - build
-        - test:
-            requires:
-              - build
+        - add-pr-comment
 
-
-# following a project on CircleCI
-# jobs: hello world
-# https://circleci.com/gh/annapamma/sandbox/228
-# workflows: build - then test
-# https://circleci.com/workflow-run/776f8602-281f-42a2-a2a7-fd443c77f444
-# caching dependencies
-# before: https://circleci.com/gh/annapamma/sandbox/178
-# after: https://circleci.com/gh/annapamma/sandbox/231
-# parallel: timing data
-#
