@@ -1,21 +1,28 @@
 version: 2.1
 
 jobs:
-  build:
+  add-pr-comment:
     docker:
       - image: circleci/node:9.6.1
     steps:
       - run: |
+          curl --location --request GET "https://api.github.com/repos/annapamma/sandbox/commits/${CIRCLE_SHA1}/pulls" \
+          --header 'Accept: application/vnd.github.groot-preview+json' \
+          --header "Authorization: token ${GH_TOKEN}" \
+          --header 'Content-Type: text/plain' \
+          -d '{
+              "status": "completed"
+          }'
           curl --location --request POST 'https://api.github.com/repos/annapamma/sandbox/issues/4/comments' \
           --header 'Accept: application/vnd.github.comfort-fade-preview+json' \
           --header "Authorization: token ${GH_TOKEN}" \
           --header 'Content-Type: application/json' \
           -d '{
-            "body": "Me too2"
+            "body": "This is a comment"
           }'
 
 workflows:
-   build-then-test:
+   demo-adding-pr-comment:
       jobs:
-        - build
+        - add-pr-comment
 
