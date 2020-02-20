@@ -5,30 +5,17 @@ jobs:
     docker:
       - image: circleci/node:9.6.1
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - dependency-cache-{{ checksum "yarn.lock" }}
-      - run: yarn install
-      - save_cache:
-          key: dependency-cache-{{ checksum "yarn.lock" }}
-          paths:
-            - ./node_modules
-
-  test:
-    docker:
-      - image: circleci/node:9.6.1
-    parallelism: 3
-    steps:
-      - checkout
-      - run: echo 'running A LOT OF tests'
+      - run: |
+          curl --location --request POST 'https://api.github.com/repos/annapamma/sandbox/issues/4/comments' \
+          --header 'Accept: application/vnd.github.comfort-fade-preview+json' \
+          --header "Authorization: token ${GH_TOKEN}" \
+          --header 'Content-Type: application/json' \
+          --data-raw '{
+            "body": "Me too2"
+          }'
 
 workflows:
    build-then-test:
       jobs:
         - build
-        - test:
-            requires:
-              - build
-
 
