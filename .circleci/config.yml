@@ -6,19 +6,13 @@ jobs:
       - image: circleci/node:9.6.1
     steps:
       - run: |
-          curl --location --request GET "https://api.github.com/repos/annapamma/sandbox/commits/${CIRCLE_SHA1}/pulls" \
-          --header 'Accept: application/vnd.github.groot-preview+json' \
-          --header "Authorization: token ${GH_TOKEN}" \
-          --header 'Content-Type: text/plain' \
-          -d '{
-              "status": "completed"
-          }'
-          curl --location --request POST 'https://api.github.com/repos/annapamma/sandbox/issues/4/comments' \
+          PR=`basename ${CIRCLE_PULL_REQUEST}`
+          curl --location --request POST 'https://api.github.com/repos/annapamma/sandbox/issues/${PR}/comments' \
           --header 'Accept: application/vnd.github.comfort-fade-preview+json' \
           --header "Authorization: token ${GH_TOKEN}" \
           --header 'Content-Type: application/json' \
           -d '{
-            "body": "This is a comment"
+            "body": "This is a comment. You can put your codecov percent here."
           }'
 
 workflows:
