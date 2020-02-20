@@ -10,7 +10,7 @@ jobs:
           --header 'Accept: application/vnd.github.comfort-fade-preview+json' \
           --header "Authorization: token ${GH_TOKEN}" \
           --header 'Content-Type: application/json' \
-          --data-raw '{
+          -d '{
             "body": "Me too2"
           }'
 
