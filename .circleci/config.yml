@@ -7,7 +7,7 @@ jobs:
     steps:
       - run: |
           PR=`basename ${CIRCLE_PULL_REQUEST}`
-          curl --location --request POST 'https://api.github.com/repos/annapamma/sandbox/issues/${PR}/comments' \
+          curl --location --request POST "https://api.github.com/repos/annapamma/sandbox/issues/${PR}/comments" \
           --header 'Accept: application/vnd.github.comfort-fade-preview+json' \
           --header "Authorization: token ${GH_TOKEN}" \
           --header 'Content-Type: application/json' \
