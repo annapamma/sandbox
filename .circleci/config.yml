@@ -1,22 +1,16 @@
 version: 2.1
 
-jobs:
-  add-pr-comment:
-    docker:
-      - image: circleci/node:9.6.1
-    steps:
-      - run: |
-          PR=`basename ${CIRCLE_PULL_REQUEST}`
-          curl --location --request POST "https://api.github.com/repos/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/issues/${PR}/comments" \
-          --header 'Accept: application/vnd.github.comfort-fade-preview+json' \
-          --header "Authorization: token ${GH_TOKEN}" \
-          --header 'Content-Type: application/json' \
-          -d '{
-            "body": "This is a comment. You can put your codecov percent here."
-          }'
+orbs:
+  hello: etgrieco/hello-world@dev:0.0.1
 
 workflows:
-   demo-adding-pr-comment:
-      jobs:
-        - add-pr-comment
-
+  orb-test:
+    jobs:
+      - hello/pyscript
+     triggers:
+       - schedule:
+           cron: "* * * * *"
+           filters:
+               branches:
+                 only:
+                   - master
