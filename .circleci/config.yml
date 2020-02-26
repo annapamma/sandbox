@@ -1,19 +1,31 @@
 version: 2.1
 
-orbs:
-    win: circleci/windows@2.4.0
+executors:
+  macos-ios-executor:
+    macos:
+      xcode: "11.3.1"
+    resource_class: large
 
 jobs:
-    build:
-        executor:
-            name: win/default
-            shell: bash.exe
-        steps:
-             - checkout
-             - setup_remote_docker:
-                  docker_layer_caching: true
-             - run: docker build .
-#version: 2.1
+  build:
+    executor: macos-ios-executor
+    steps:
+      - run: echo "hello world"
+#
+#orbs:
+#    win: circleci/windows@2.4.0
+#
+#jobs:
+#    build:
+#        executor:
+#            name: win/default
+#            shell: bash.exe
+#        steps:
+#             - checkout
+#             - setup_remote_docker:
+#                  docker_layer_caching: true
+#             - run: docker build .
+##version: 2.1
 #orbs:
 #  hello: etgrieco/hello-world@dev:0.0.1
 #
