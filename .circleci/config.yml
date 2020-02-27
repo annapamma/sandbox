@@ -1,18 +1,11 @@
 version: 2.1
 
-executors:
-  macos-ios-executor:
-    macos:
-      xcode: "11.3.1"
-    resource_class: large
-
 jobs:
   build:
-    executor: macos-ios-executor
+    docker:
+      - image: circleci/node:latest
     steps:
-      - run: |
-          HOMEBREW_NO_ANALYTICS=1 HOMEBREW_NO_AUTO_UPDATE=1 brew tap homebrew/core
-          HOMEBREW_NO_ANALYTICS=1 HOMEBREW_NO_AUTO_UPDATE=1 brew cask install fastlane
+      - run: echo 'hello'
 #
 #orbs:
 #    win: circleci/windows@2.4.0
