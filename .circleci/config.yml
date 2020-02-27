@@ -5,37 +5,4 @@ jobs:
     docker:
       - image: circleci/node:latest
     steps:
-      - run: sleep 1000
-#
-#orbs:
-#    win: circleci/windows@2.4.0
-#
-#jobs:
-#    build:
-#        executor:
-#            name: win/default
-#            shell: bash.exe
-#        steps:
-#             - checkout
-#             - setup_remote_docker:
-#                  docker_layer_caching: true
-#             - run: docker build .
-##version: 2.1
-#orbs:
-#  hello: etgrieco/hello-world@dev:0.0.1
-#
-#workflows:
-#  orb-test:
-#    jobs:
-#      - hello/pyscript:
-##          parameters:
-#          circle-project-username-envvar: SLACK_MONITOR_CIRCLE_PROJECT_USERNAME
-#          circle-project-reponame-envvar: SLACK_MONITOR_CIRCLE_PROJECT_REPONAME
-##
-##    triggers:
-##      - schedule:
-##          cron: "* * * * *"
-##          filters:
-##              branches:
-##                only:
-##                  - master
+      - run: echo ${CIRCLE_BRANCH}
