@@ -8,10 +8,10 @@ jobs:
      - checkout
      - restore_cache:
          keys:
-           - dependency-cache-{{ checksum \"yarn.lock\" }}
+           - dependency-cache-{{ checksum "yarn.lock" }}
      - run: yarn install
      - save_cache:
-         key: dependency-cache-{{ checksum \"yarn.lock\" }}
+         key: dependency-cache-{{ checksum "yarn.lock" }}
          paths:
            - ./node_modules
  unit-test:
@@ -27,7 +27,7 @@ jobs:
    steps:
      - checkout
      - run: mkdir /tmp/cypress
-     - run: echo 'cypess screenshots' > /tmp/cypress/index.html
+     - run: echo 'cypess screenshots' > /tmp/cypress/index.jpg
      - store_artifacts:
          path: /tmp/cypress
          destination: cypress
