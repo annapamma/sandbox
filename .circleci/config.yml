@@ -45,6 +45,6 @@ workflows:
         - e2e-test:
             requires:
               - build
-        - lint:
-            requires:
-              - build
+#        - lint:
+#            requires:
+#              - build
