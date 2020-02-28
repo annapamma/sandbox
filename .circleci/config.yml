@@ -5,5 +5,46 @@ jobs:
     docker:
       - image: circleci/node:9.6.1
     steps:
-      - run: echo ${CIRCLE_BRANCH}
+      - checkout
+      - restore_cache:
+          keys:
+            - dependency-cache-{{ checksum "yarn.lock" }}
+      - run: yarn install
+      - save_cache:
+          key: dependency-cache-{{ checksum "yarn.lock" }}
+          paths:
+            - ./node_modules
+  unit-test:
+    docker:
+      - image: circleci/node:9.6.1
+    parallelism: 3
+    steps:
+      - checkout
+      - run: echo 'running A LOT OF tests'
+  e2e-test:
+    docker:
+      - image: circleci/node:9.6.1
+    steps:
+      - checkout
+      - run: mkdir /tmp/cypress
+      - run: echo 'cypess screenshots' > /tmp/cypress/index.html
+      - store_artifacts:
+          path: /tmp/cypress
+          destination: cypress
 
+#    when:
+
+
+workflows:
+   build-then-test:
+      jobs:
+        - build
+        - unit-test:
+            requires:
+              - build
+        - e2e-test:
+            requires:
+              - build
+        - lint:
+            requires:
+              - build
