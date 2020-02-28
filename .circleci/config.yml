@@ -31,9 +31,18 @@ jobs:
       - store_artifacts:
           path: /tmp/cypress
           destination: cypress
-
-#    when:
-
+  lint:
+    docker:
+      - image: circleci/node:9.6.1
+    steps:
+      - checkout
+      - run: echo 'yarn lint'
+  deploy:
+    docker:
+      - image: circleci/node:9.6.1
+    steps:
+      - checkout
+      - run: echo 'deploy'
 
 workflows:
    build-then-test:
@@ -45,6 +54,14 @@ workflows:
         - e2e-test:
             requires:
               - build
-#        - lint:
-#            requires:
-#              - build
+        - lint:
+            requires:
+              - build
+        - deploy:
+            filters:
+              branches:
+                only: 'master'
+            requires:
+              - unit-test
+              - lint
+              - e2e-test
