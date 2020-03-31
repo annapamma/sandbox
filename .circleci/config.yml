@@ -4,8 +4,6 @@ version: 2.1
 
 jobs:
   build:
-#    environment:
-#      TEST: ${ENVVAR_IN_MY_CONTEXT}
     parameters:
       test:
         type: env_var_name
@@ -14,4 +12,4 @@ jobs:
       - image: circleci/node:9.6.1
     steps:
       - run: echo << parameters.test >>
-# "${ENVVAR_IN_MY_CONTEXT}"
+      - run: echo ${<< parameters.test >>}
