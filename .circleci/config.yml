@@ -1,11 +1,14 @@
 version: 2.1
 
+parameters:
+  TEST: ${SLACK_MONITOR_CIRCLE_PROJECT_REPONAME}
+
 jobs:
   build:
-    environment:
-      TEST: ${SLACK_MONITOR_CIRCLE_PROJECT_REPONAME}
+#    environment:
+#      TEST: ${ENVVAR_IN_MY_CONTEXT}
     docker:
       - image: circleci/node:9.6.1
     steps:
-     - run: echo 'hello world'
-     - run: echo ${TEST}
+     - run: echo << pipeline.parameters.TEST >>
+# "${ENVVAR_IN_MY_CONTEXT}"
