@@ -3,7 +3,7 @@ version: 2.1
 parameters:
   test:
     type: env_var_name
-    default: ${SLACK_MONITOR_CIRCLE_PROJECT_REPONAME}
+    default: SLACK_MONITOR_CIRCLE_PROJECT_REPONAME
 
 jobs:
   build:
