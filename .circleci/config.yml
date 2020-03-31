@@ -10,4 +10,4 @@ jobs:
       - image: circleci/node:9.6.1
     steps:
       - run: echo << parameters.test >> # prints TOKEN_IN_MY_CONTEXT as raw string
-      - run: echo ${<< parameters.test >>} # print asterisks, uses secret
+      - run: sleep 1000
