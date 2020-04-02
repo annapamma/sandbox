@@ -2,6 +2,10 @@ version: 2.1
 
 jobs:
   build:
+    parameters:
+      octupus-channel:
+        type: boolean
+        default: true
     docker:
       - image: circleci/node:9.6.1
     steps:
@@ -16,4 +20,12 @@ jobs:
       - run: |
           echo $FOO
           echo $NUGET
+      - when:
+          condition: << parameters.octopus-channel >>
+          steps:
+            - run: ehco "hello"
 
+workflows:
+  build:
+    jobs:
+      - build
