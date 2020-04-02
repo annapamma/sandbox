@@ -8,6 +8,7 @@ jobs:
       - run: |
           echo "test" >> $BASH_ENV
           echo "export FOO='BAR'" >> $BASH_ENV
+          ls Client/BuildOutput
           echo "export NUGET='$(ls Client/BuildOutput | grep .nupkg)'" >> $BASH_ENV
           cat $BASH_ENV
       - run: |
