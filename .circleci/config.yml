@@ -8,4 +8,5 @@ jobs:
       - run: |
           echo "test" >> $BASH_ENV
           cat $BASH_ENV
+      - run: cat $BASH_ENV
 
