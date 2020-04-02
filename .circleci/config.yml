@@ -23,7 +23,7 @@ jobs:
       - when:
           condition: << parameters.octopus-channel >>
           steps:
-            - run: echo "hello"
+            - run: echo $BASH_ENV
 
 workflows:
   build:
