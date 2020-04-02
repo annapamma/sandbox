@@ -9,21 +9,10 @@ jobs:
     docker:
       - image: circleci/node:9.6.1
     steps:
-      - checkout
-      - run: |
-          echo "test" >> $BASH_ENV
-          echo "export FOO='BAR'" >> $BASH_ENV
-          ls
-          ls Client/BuildOutput
-          echo "export NUGET='$(ls Client/BuildOutput | grep .nupkg)'" >> $BASH_ENV
-          cat $BASH_ENV
-      - run: |
-          echo $FOO
-          echo $NUGET
       - when:
           condition: << parameters.octopus-channel >>
           steps:
-            - run: ehco "hello"
+            - run: echo "hello"
 
 workflows:
   build:
