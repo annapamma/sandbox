@@ -7,5 +7,5 @@ jobs:
     steps:
       - run: |
           echo $BASH_ENV
-          cat ~/.bash_profile
+          cat $BASH_ENV
 
