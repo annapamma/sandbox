@@ -20,7 +20,7 @@ jobs:
           condition: << parameters.octopus-channel >>
           steps:
             - run: |
-                echo $BASH_ENV
+                echo $NUGET
                 cat $BASH_ENV
 
 workflows:
