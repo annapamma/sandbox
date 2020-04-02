@@ -6,6 +6,6 @@ jobs:
       - image: circleci/node:9.6.1
     steps:
       - run: |
-          echo "test" > $BASH_ENV
+          echo "test" >> $BASH_ENV
           cat $BASH_ENV
 
