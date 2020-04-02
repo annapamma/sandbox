@@ -2,13 +2,10 @@ version: 2.1
 
 jobs:
   build:
-    parameters:
-      test:
-        type: env_var_name
-        default: TOKEN_IN_MY_CONTEXT
     docker:
       - image: circleci/node:9.6.1
     steps:
-      - run: echo << parameters.test >> # prints TOKEN_IN_MY_CONTEXT as raw string
-      - run: sleep 100
+      - run: |
+          echo $BASH_ENV
+          cat ~/.bash_profile
 
