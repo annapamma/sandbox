@@ -7,6 +7,7 @@ jobs:
     steps:
       - run: |
           echo "test" >> $BASH_ENV
+          echo "export FOO='BAR'" >> $BASH_ENV
           cat $BASH_ENV
       - run: cat $BASH_ENV
 
