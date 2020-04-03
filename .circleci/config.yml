@@ -10,9 +10,9 @@ jobs:
     other-job:
       docker:
       - image: circleci/node:9.6.1
-    steps:
-      - checkout
-      - run: echo "scheduled workflow"
+      steps:
+        - checkout
+        - run: echo "scheduled workflow"
 
 workflows:
   build:
