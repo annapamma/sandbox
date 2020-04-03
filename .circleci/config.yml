@@ -19,6 +19,8 @@ workflows:
     jobs:
       - build
   scheduled:
+    jobs:
+      - other-job
     triggers:
       - schedule:
           cron: "* * * * *"
