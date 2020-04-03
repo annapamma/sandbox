@@ -1,12 +1,16 @@
 version: 2.1
 
+parameters:
+  test:
+    type: string
+    default: 'hi'
 jobs:
   build:
     docker:
       - image: circleci/node:9.6.1
     steps:
       - checkout
-      - run: echo << pipeline.number >>
+      - run: echo << pipeline.parameters.test >>
   other-job:
     docker:
       - image: circleci/node:9.6.1
