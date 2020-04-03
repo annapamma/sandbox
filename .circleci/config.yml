@@ -2,12 +2,29 @@ version: 2.1
 
 jobs:
   build:
-    parameters:
-      test:
-        type: env_var_name
-        default: TOKEN_IN_MY_CONTEXT
     docker:
       - image: circleci/node:9.6.1
     steps:
-      - run: echo << parameters.test >> # prints TOKEN_IN_MY_CONTEXT as raw string
-      - run: echo ${<< parameters.test >>} # print asterisks, uses secret
+      - checkout
+      - run: echo << pipeline.number >>
+  other-job:
+    docker:
+      - image: circleci/node:9.6.1
+    steps:
+      - checkout
+      - run: echo "scheduled workflow"
+
+workflows:
+  build:
+    jobs:
+      - build
+  scheduled:
+    jobs:
+      - other-job
+    triggers:
+      - schedule:
+          cron: "* * * * *"
+          filters:
+            branches:
+              only:
+                - master
