@@ -11,6 +11,7 @@ jobs:
     steps:
       - checkout
       - run: echo << pipeline.parameters.test >>
+      - run: echo << pipeline.number >>
   other-job:
     docker:
       - image: circleci/node:9.6.1
