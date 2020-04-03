@@ -2,25 +2,27 @@ version: 2.1
 
 jobs:
   build:
-    parameters:
-      octopus-channel:
-        type: boolean
-        default: true
     docker:
       - image: circleci/node:9.6.1
     steps:
       - checkout
       - run: echo << pipeline.number >>
-      - run: echo $NUGET
-      - when:
-          condition: << parameters.octopus-channel >>
-          steps:
-            - run: |
-                echo $NUGET
-                echo $VER
-                cat $BASH_ENV
+    other-job:
+      docker:
+      - image: circleci/node:9.6.1
+    steps:
+      - checkout
+      - run: echo "scheduled workflow"
 
 workflows:
   build:
     jobs:
       - build
+  scheduled:
+    triggers:
+      - schedule:
+          cron: "* * * * *"
+          filters:
+            branches:
+              only:
+                - master
