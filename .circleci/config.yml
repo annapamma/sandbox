@@ -11,6 +11,7 @@ jobs:
     steps:
       - checkout
       - run: echo << pipeline.number >>
+      - run: circleci-agent step halt
   other-job:
     docker:
       - image: circleci/node:9.6.1
