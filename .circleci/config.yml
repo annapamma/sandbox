@@ -1,35 +1,21 @@
 version: 2.1
 
-parameters:
-  test:
-    type: string
-    default: 'hi'
 jobs:
-  build:
+  a:
     docker:
       - image: circleci/node:9.6.1
     steps:
       - checkout
-      - run: echo << pipeline.number >>
-      - run: circleci-agent step halt
-  other-job:
+      - run: echo "a"
+  b:
     docker:
       - image: circleci/node:9.6.1
     steps:
       - checkout
-      - run: echo "scheduled workflow"
+      - run: echo "b"
 
 workflows:
-  build:
+  test:
     jobs:
-      - build
-#  scheduled:
-#    jobs:
-#      - other-job
-#    triggers:
-#      - schedule:
-#          cron: "* * * * *"
-#          filters:
-#            branches:
-#              only:
-#                - master
+      - a
+      - b
