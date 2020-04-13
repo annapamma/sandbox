@@ -11,7 +11,7 @@ commands:
       - run:
           name: Skip this job if the project has not changed
           command: |
-            echo "/tmp/changed_projects/${ << parameters.changefile >> }"
+            echo "/tmp/changed_projects/<< parameters.changefile >>"
             if [[ -n $CIRCLE_PULL_REQUEST ]] && [[ ! -f "/tmp/changed_projects/retail" ]]; then
               circleci step halt
             fi
