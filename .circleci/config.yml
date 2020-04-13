@@ -30,12 +30,28 @@ commands:
       - save_cache:
           paths: ".git"
           key: v2-git-refs-{{ checksum "/tmp/.git-refs-cache-key" }}
-  notify-coach-failures:
+  notify-coach-failures: #used 47x
     steps:
       - run:
           name: notify coach of Build Failures
-          command: echo "notify_coach build_failures"
-          when: on_success
+          command: notify_coach build_failures
+          when: on_fail
+  attach-workspace: # used 44x
+    steps:
+      - attach_workspace:
+          at: "/tmp/"
+  run-coach-check:
+    parameters:
+      dir:
+        description: directory to run coach check in
+        type: string
+        default: ''
+    steps:
+      - run:
+          name: run coach check
+          command: |
+            cd << parameters.dir >>
+            coach check
 
 jobs:
   build:
@@ -47,4 +63,7 @@ jobs:
       - generate-cache-key
       - restore-cache
       - save-cache
-      - notify-coach-failures
+#      - notify-coach-failures
+      - attach-workspace
+      - run-coach-check:
+          dir: 'advice_jl'
