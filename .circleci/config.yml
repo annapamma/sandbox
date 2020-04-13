@@ -19,12 +19,23 @@ commands:
       - run:
           name: Generate git refs cache key
           command: date +%Y-%m-%d > /tmp/.git-refs-cache-key
-  restore-cache:
+  restore-cache: # used 46x
     steps:
       - restore_cache:
           keys:
           - v2-git-refs-{{ checksum "/tmp/.git-refs-cache-key" }}
           - v2-git-refs-
+  save-cache: # used 46x
+    steps:
+      - save_cache:
+          paths: ".git"
+          key: v2-git-refs-{{ checksum "/tmp/.git-refs-cache-key" }}
+  notify-coach-failures:
+    steps:
+      - run:
+          name: notify coach of Build Failures
+          command: notify_coach build_failures
+          when: on_success
 
 jobs:
   build:
@@ -35,3 +46,5 @@ jobs:
           changefile: 'retail'
       - generate-cache-key
       - restore-cache
+      - save-cache
+      - notify-coach-failures
