@@ -2,14 +2,20 @@ version: 2.1
 
 commands:
   check-project-changes:
+    parameters:
+        changefile:
+          description: path to file with changes
+          type: string
+          default: ''
     steps:
       - run:
           name: Skip this job if the project has not changed
           command: |
+            echo "/tmp/changed_projects/${ << parameters.changefile >> }"
             if [[ -n $CIRCLE_PULL_REQUEST ]] && [[ ! -f "/tmp/changed_projects/retail" ]]; then
               circleci step halt
             fi
-  generate-cache-key:
+  generate-cache-key: # used 46x
     steps:
       - run:
           name: Generate git refs cache key
@@ -20,5 +26,6 @@ jobs:
     docker:
       - image: circleci/node:9.6.1
     steps:
-      - check-project-changes
+      - check-project-changes:
+          changefile: 'retail'
       - generate-cache-key
