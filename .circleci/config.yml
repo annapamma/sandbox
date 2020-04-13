@@ -34,7 +34,7 @@ commands:
     steps:
       - run:
           name: notify coach of Build Failures
-          command: notify_coach build_failures
+          command: echo "notify_coach build_failures"
           when: on_success
 
 jobs:
