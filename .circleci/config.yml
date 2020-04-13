@@ -1,21 +1,24 @@
 version: 2.1
 
-jobs:
-  a:
-    docker:
-      - image: circleci/node:9.6.1
+commands:
+  check-project-changes:
     steps:
-      - checkout
-      - run: echo "a"
-  b:
-    docker:
-      - image: circleci/node:9.6.1
+      - run:
+          name: Skip this job if the project has not changed
+          command: |
+            if [[ -n $CIRCLE_PULL_REQUEST ]] && [[ ! -f "/tmp/changed_projects/retail" ]]; then
+              circleci step halt
+            fi
+  generate-cache-key:
     steps:
-      - checkout
-      - run: echo "b"
+      - run:
+          name: Generate git refs cache key
+          command: date +%Y-%m-%d > /tmp/.git-refs-cache-key
 
-workflows:
-  test:
-    jobs:
-      - a
-      - b
+jobs:
+  build:
+    docker:
+      - image: circleci/node:9.6.1
+    steps:
+      - check-project-changes
+      - generate-cache-key
