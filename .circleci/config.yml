@@ -1,7 +1,7 @@
 version: 2.1
 
 commands:
-  check-project-changes:
+  check-project-changes: # used 44x with various file paths
     parameters:
         changefile:
           description: path to file with changes
@@ -19,6 +19,12 @@ commands:
       - run:
           name: Generate git refs cache key
           command: date +%Y-%m-%d > /tmp/.git-refs-cache-key
+  restore-cache:
+    steps:
+      - restore_cache:
+          keys:
+          - v2-git-refs-{{ checksum "/tmp/.git-refs-cache-key" }}
+          - v2-git-refs-
 
 jobs:
   build:
@@ -28,3 +34,4 @@ jobs:
       - check-project-changes:
           changefile: 'retail'
       - generate-cache-key
+      - restore-cache
