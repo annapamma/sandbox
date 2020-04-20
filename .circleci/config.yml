@@ -2,6 +2,8 @@ version: 2.1
 
 jobs:
   build:
+    environment:
+      - deploy_prod: false
     docker:
       - image: circleci/php:latest
     steps:
