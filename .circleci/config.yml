@@ -9,8 +9,13 @@ jobs:
       - image: circleci/php:latest
     steps:
       - checkout
-      - orb-tools/publish:
-          orb-ref: buildpacks/pack@$CIRCLE_TAG
+
+
+workflows:
+  publish:
+    jobs:
+      - orb-tools/publish-dev:
+          orb-name: buildpacks/pack
           orb-path: orb.yml
           publish-token-variable: CIRCLE_TOKEN
-
+          checkout: true
