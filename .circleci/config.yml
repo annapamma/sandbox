@@ -15,7 +15,7 @@ workflows:
   publish:
     jobs:
       - orb-tools/publish-dev:
-          orb-name: buildpacks/pack
+          orb-name: anna/test
           orb-path: orb.yml
           publish-token-variable: CIRCLE_TOKEN
           checkout: true
