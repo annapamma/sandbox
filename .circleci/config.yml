@@ -1,21 +1,9 @@
 version: 2.1
 
-orbs:
-  orb-tools: circleci/orb-tools@9.0.0
-
 jobs:
   build:
     docker:
       - image: circleci/php:latest
     steps:
       - checkout
-
-
-workflows:
-  publish:
-    jobs:
-      - orb-tools/publish-dev:
-          orb-name: anna/test
-          orb-path: orb.yml
-          publish-token-variable: CIRCLE_TOKEN
-          checkout: true
+      - run: echo 'hello world'
