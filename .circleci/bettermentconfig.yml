@@ -1,0 +1,77 @@
+version: 2.1
+
+commands:
+  check-project-changes: # used 44x with various file paths
+    parameters:
+        changefile:
+          description: path to file with changes
+          type: string
+          default: ''
+    steps:
+      - run:
+          name: Skip this job if the project has not changed
+          command: |
+            if [[ -n $CIRCLE_PULL_REQUEST ]] && [[ ! -f "/tmp/changed_projects/<< parameters.changefile >>" ]]; then
+              circleci step halt
+            fi
+  generate-cache-key: # used 46x
+    steps:
+      - run:
+          name: Generate git refs cache key
+          command: date +%Y-%m-%d > /tmp/.git-refs-cache-key
+  restore-cache: # used 46x
+    steps:
+      - restore_cache:
+          keys:
+          - v2-git-refs-{{ checksum "/tmp/.git-refs-cache-key" }}
+          - v2-git-refs-
+  save-cache: # used 46x
+    steps:
+      - save_cache:
+          paths: ".git"
+          key: v2-git-refs-{{ checksum "/tmp/.git-refs-cache-key" }}
+  notify-coach-failures: #used 47x
+    steps:
+      - run:
+          name: notify coach of Build Failures
+          command: notify_coach build_failures
+          when: on_fail
+  attach-workspace: # used 44x
+    steps:
+      - attach_workspace:
+          at: "/tmp/"
+  run-coach-check: # used 20x
+    parameters:
+      dir:
+        description: directory to run coach check in
+        type: string
+        default: ''
+    steps:
+      - run:
+          name: run coach check
+          command: |
+            cd << parameters.dir >>
+            coach check
+  setup-npm: # used 23x
+    steps:
+      - run:
+          name: setup npm
+          command: |
+            NPM_TEMPLATE="${CIRCLE_WORKING_DIRECTORY/#~/$HOME}/.circleci/npmrc"
+            sed -e "s/NPM_ARTIFACTORY_AUTH_TOKEN/${NPM_ARTIFACTORY_AUTH_TOKEN}/" $NPM_TEMPLATE > ~/.npmrc
+
+jobs:
+  build:
+    docker:
+      - image: circleci/node:9.6.1
+    steps:
+      - check-project-changes:
+          changefile: 'retail'
+      - generate-cache-key
+      - restore-cache
+      - save-cache
+#      - notify-coach-failures
+      - attach-workspace
+      - run-coach-check:
+          dir: 'advice_jl'
+      - setup-npm
