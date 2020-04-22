@@ -2,10 +2,7 @@ version: 2.1
 
 jobs:
   build:
-    environment:
-      - deploy_prod: false
     docker:
-      - image: circleci/php:latest
+      - image: circleci/node:latest
     steps:
-      - checkout
       - run: echo 'hello world'
