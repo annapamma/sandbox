@@ -3,14 +3,15 @@
 
 version: 2.1
 
-orbs:
-  win: circleci/windows@2.2.0
-
 jobs:
   build:
-    executor:
-      name: win/default
-      shell: powershell.exe
-      size: large
+    docker:
+      - image: circleci/node:latest
     steps:
       - run: echo 'hi'
+
+workflows:
+    build-with-context:
+      jobs:
+        - build:
+            context: sf-demo
