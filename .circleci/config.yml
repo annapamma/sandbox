@@ -1,8 +1,16 @@
+# https://circleci.com/blog/building-and-testing-an-asp-net-core-application/
+# Currently CircleCI supports a single Windows image: Windows Server 2019 with Visual Studio 2019.
+
 version: 2.1
+
+orbs:
+  win: circleci/windows@2.2.0
 
 jobs:
   build:
-    docker:
-      - image: circleci/node:latest
+    executor:
+      name: win/default
+      shell: powershell.exe
+      size: large
     steps:
-      - run: echo 'hello world'
+      - run: echo 'hi'
