@@ -6,12 +6,11 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/node:latest
+      - image: circleci/node:9.6.1
     steps:
-      - run: echo ${GH_TOKEN}
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "18:29:20:fa:30:07:2f:0a:78:9b:0e:de:9f:b6:fd:fe"
+      - run: git commit --allow-empty -m "[skip ci] Test pushback" && git push origin master
 
-workflows:
-    build-with-context:
-      jobs:
-        - build:
-            context: sf-demo
