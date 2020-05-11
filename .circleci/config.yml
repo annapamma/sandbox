@@ -1,16 +1,29 @@
-# https://circleci.com/blog/building-and-testing-an-asp-net-core-application/
-# Currently CircleCI supports a single Windows image: Windows Server 2019 with Visual Studio 2019.
-
 version: 2.1
 
 jobs:
-  build:
+  a:
     docker:
       - image: circleci/node:9.6.1
     steps:
-      - checkout
-      - add_ssh_keys:
-          fingerprints:
-            - "18:29:20:fa:30:07:2f:0a:78:9b:0e:de:9f:b6:fd:fe"
-      - run: git config --global user.email "anna.pamela@gmail.com" && git config --global user.name "Anna" && git commit --allow-empty -m "[skip ci] Test pushback" && git push origin master
+      - run: echo 'a'
+  b:
+    docker:
+      - image: circleci/node:9.6.1
+    steps:
+      - run: echo 'b'
+  c:
+    docker:
+      - image: circleci/node:9.6.1
+    steps:
+      - run: echo 'c'
 
+workflows:
+  test:
+    jobs:
+      - a
+      - b
+      - c:
+          context: context
+          requires:
+            - a
+            - b
