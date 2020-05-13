@@ -5,25 +5,11 @@ jobs:
     docker:
       - image: circleci/node:9.6.1
     steps:
-      - run: echo 'a'
-  b:
-    docker:
-      - image: circleci/node:9.6.1
-    steps:
-      - run: echo 'b'
-  c:
-    docker:
-      - image: circleci/node:9.6.1
-    steps:
-      - run: echo 'c'
+      - run:
+          command: sleep 100
+          no_output_timeout: 10s
 
 workflows:
   test:
     jobs:
       - a
-      - b
-      - c:
-          context: context
-          requires:
-            - a
-            - b
