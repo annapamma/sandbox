@@ -1,13 +1,17 @@
 version: 2.1
 
+orbs:
+  diagnostic-orb: circleci/diagnostic-orb@1.0.0
+
 jobs:
   a:
     docker:
       - image: circleci/node:9.6.1
     steps:
+      - diagnostic-orb/memory
       - run:
-          command: sleep 100
-          no_output_timeout: 10s
+          command: echo 'test'
+      - diagnostic-orb/store-report
 
 workflows:
   test:
