@@ -9,8 +9,9 @@ jobs:
       - image: circleci/node:9.6.1
     steps:
       - diagnostic-orb/memory
-      - run:
-          command: echo 'test'
+      - run: |
+          mkdir /tmp/ramdisk; chmod 777 /tmp/ramdisk
+          mount -t tmpfs -o size=256M tmpfs /tmp/ramdisk/
       - diagnostic-orb/store-report
 
 workflows:
