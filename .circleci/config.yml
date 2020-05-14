@@ -8,9 +8,8 @@ jobs:
     docker:
       - image: circleci/node:9.6.1
     steps:
-      - run: |
-          sudo mkdir /tmp/ramdisk; sudo chmod 777 /tmp/ramdisk
-          sudo mount -t tmpfs -o size=256M tmpfs /tmp/ramdisk/
+      - run: stress --vm 2 --vm-bytes 128M
+      - run: top
 
 workflows:
   test:
