@@ -9,7 +9,7 @@ jobs:
       - image: circleci/node:9.6.1
     steps:
       - run:
-          command: sudo mkdir /tmp/memory && sudo top -b -n 5 > /tmp/memory/top.txt
+          command: sudo mkdir /tmp/memory && top -b -n 5 > /tmp/memory/top.txt
       - store_artifacts:
           path: /tmp/memory
           destination: top.txt
