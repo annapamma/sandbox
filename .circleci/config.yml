@@ -8,7 +8,6 @@ jobs:
     docker:
       - image: circleci/node:9.6.1
     steps:
-      - run: stress --vm 2 --vm-bytes 128M
       - run: top > hello.txt
       - run: cat hello.txt
 
