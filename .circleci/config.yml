@@ -5,6 +5,8 @@ orbs:
 
 jobs:
   a:
+    environment:
+      TERM: xterm
     docker:
       - image: circleci/node:9.6.1
     steps:
