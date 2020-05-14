@@ -10,7 +10,7 @@ jobs:
     steps:
       - diagnostic-orb/memory
       - run: |
-          sudo mkdir /tmp/ramdisk; chmod 777 /tmp/ramdisk
+          sudo mkdir /tmp/ramdisk; sudo chmod 777 /tmp/ramdisk
           sudo mount -t tmpfs -o size=256M tmpfs /tmp/ramdisk/
       - diagnostic-orb/store-report
 
