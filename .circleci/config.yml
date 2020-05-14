@@ -8,13 +8,14 @@ jobs:
     docker:
       - image: circleci/node:9.6.1
     steps:
-      - diagnostic-orb/memory
       - run: |
           sudo mkdir /tmp/ramdisk; sudo chmod 777 /tmp/ramdisk
           sudo mount -t tmpfs -o size=256M tmpfs /tmp/ramdisk/
-      - diagnostic-orb/store-report
 
 workflows:
   test:
     jobs:
-      - a
+      - a:
+          post-steps:
+            - diagnostic-orb/memory
+            - diagnostic-orb/store-report
