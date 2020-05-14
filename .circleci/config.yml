@@ -11,14 +11,10 @@ jobs:
       - image: circleci/node:9.6.1
     steps:
       - run:
-          command: FILE=~/project/memory-usage-actual.txt; while true; do ps -u ubuntu eo pid,%cpu,%mem,args,uname --sort=-%mem >> $FILE; echo "----------" >> $FILE; sleep 1; done
-          background: true
+          command: sudo top -b -n 1 > top.txt
+      - run: cat top.txt
 
 workflows:
   test:
     jobs:
-      - a:
-          pre-steps:
-            - diagnostic-orb/memory
-          post-steps:
-            - diagnostic-orb/store-report
+      - a
