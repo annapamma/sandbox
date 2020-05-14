@@ -8,7 +8,7 @@ jobs:
     docker:
       - image: circleci/node:9.6.1
     steps:
-      - run: top > hello.txt
+      - run: export TERM=xterm && top > hello.txt
       - run: cat hello.txt
 
 workflows:
