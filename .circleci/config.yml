@@ -9,9 +9,8 @@ jobs:
           fingerprints:
             - "18:29:20:fa:30:07:2f:0a:78:9b:0e:de:9f:b6:fd:fe"
       - run: |
-          GIT_SSH_COMMAND='ssh -i ~/.ssh/id_rsa_fingerprint'
-          ssh-keyscan -p 443 ssh.github.com >> ~/.ssh/known_hosts
-          git clone git@github.com:annapamma/sandbox.git ~/sandbox
+          mkdir ~/.ssh/ && echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
+          git clone git@github.com:annapamma/vue-heatmap-tutorial.git ~/sandbox
 
 workflows:
   test-ssh:
