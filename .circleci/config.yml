@@ -11,5 +11,5 @@ jobs:
                 name: build environment variable for package name
                 command: |
                     $PARENT_BRANCH = "<< pipeline.git.branch >>".Substring(("<< pipeline.git.branch >>".IndexOf('/'))+1)
-                    [Environment]::SetEnvironmentVariable('DOCKER_HOST', 'docker.artofshell.com')
+                    [System.Environment]::SetEnvironmentVariable('DOCKER_HOST', 'tcp://docker.artofshell.com:2376', [System.EnvironmentVariableTarget]::User)
                     $env:DOCKER_HOST
