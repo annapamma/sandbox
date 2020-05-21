@@ -1,28 +1,8 @@
 version: 2.1
 
 jobs:
-    persist:
+    build:
         docker:
-          - image: busybox
+          - image: circleci/node:9.6.1
         steps:
-          - run: mkdir test && touch test/hello.txt && echo 'hi' >> test/hello.txt
-          - run: opkg-install --no-cache tar gzip
-          - persist_to_workspace:
-              root: .
-              paths:
-                - test
-    attach:
-      docker:
-        - image: busybox
-      steps:
-        - attach_workspace:
-            at: .
-        - run: ls
-
-workflows:
-  test:
-    jobs:
-      - persist
-      - attach:
-          requires:
-            - persist
+          - run: bash --version
