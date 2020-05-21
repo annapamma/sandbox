@@ -7,8 +7,8 @@ jobs:
         steps:
           - run: bash --version
           - run: mkdir 1 && mkdir 1/2 && mkdir 1/2/3
+          - run: shopt -s globstar
           - run: |
-              shopt -s globstar
               for f in 1/**; do
                 echo "$f"
               done
