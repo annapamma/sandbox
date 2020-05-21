@@ -5,7 +5,7 @@ jobs:
         docker:
           - image: alpine:latest
         steps:
-          - run: sudo mkdir test && touch test/hello.txt && echo 'hi' >> test/hello.txt
+          - run: mkdir test && touch test/hello.txt && echo 'hi' >> test/hello.txt
           - persist_to_workspace:
               root: .
               paths:
