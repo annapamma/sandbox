@@ -1,11 +1,9 @@
 version: 2.1
 
-orbs:
-    win: circleci/windows@2.4.0
-
 jobs:
     build:
-        executor: win/default
+        docker:
+          - image: alpine:latest
         steps:
             - run:
                 name: build environment variable for package name
