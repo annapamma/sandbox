@@ -6,13 +6,10 @@ orbs:
 jobs:
     build:
         executor: win/default
-        environment:
-          PIPELINE_NUM: << pipeline.number >>
-          PACKAGE: "package"
         steps:
             - run:
                 name: build environment variable for package name
                 command: |
                     $PARENT_BRANCH = "<< pipeline.git.branch >>".Substring(("<< pipeline.git.branch >>".IndexOf('/'))+1)
-                    [System.Environment]::SetEnvironmentVariable('DOCKER_HOST', 'docker.artofshell.com')
+                    [Environment]::SetEnvironmentVariable('DOCKER_HOST', 'docker.artofshell.com')
                     echo $DOCKER_HOST
