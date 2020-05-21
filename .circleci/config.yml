@@ -13,3 +13,8 @@ jobs:
                     $PARENT_BRANCH = "<< pipeline.git.branch >>".Substring(("<< pipeline.git.branch >>".IndexOf('/'))+1)
                     [Environment]::SetEnvironmentVariable('DOCKER_HOST', 'tcp://docker.artofshell.com:2376', [EnvironmentVariableTarget]::User)
                     $env:DOCKER_HOST
+            - run:
+                name: echo env
+                command: |
+                    $PARENT_BRANCH = "<< pipeline.git.branch >>".Substring(("<< pipeline.git.branch >>".IndexOf('/'))+1)
+                    $env:DOCKER_HOST
