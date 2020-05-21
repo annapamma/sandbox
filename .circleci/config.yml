@@ -7,7 +7,6 @@ jobs:
     build:
         executor: win/default
         environment:
-          BUILD_VERSION: << pipeline.parameters.build-version >>
           PIPELINE_NUM: << pipeline.number >>
           PACKAGE: "package"
         steps:
