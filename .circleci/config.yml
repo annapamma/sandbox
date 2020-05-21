@@ -6,8 +6,8 @@ jobs:
           - image: circleci/node:9.6.1
         steps:
           - run: bash --version
-          - run: touch hi.tar
+          - run: mkdir 1 && mkdir 1/2 && mkdir 1/2/3
           - run: |
-              for f in *.tar; do
+              for f in 1/**; do
                 echo "$f"
               done
