@@ -6,7 +6,7 @@ jobs:
           - image: busybox
         steps:
           - run: mkdir test && touch test/hello.txt && echo 'hi' >> test/hello.txt
-          - run: apt-get --no-cache tar gzip
+          - run: opkg-install --no-cache tar gzip
           - persist_to_workspace:
               root: .
               paths:
