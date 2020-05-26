@@ -22,7 +22,9 @@ workflows:
   test:
     jobs:
       - persist
-      - attach
+      - attach:
+          requires:
+            - persist
 #version: 2.1
 #
 #jobs:
