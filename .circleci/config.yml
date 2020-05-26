@@ -1,22 +1,28 @@
 version: 2.1
 
 jobs:
-  pass:
+  persist:
     docker:
       - image: circleci/node:9.6.1
     steps:
-      - run: echo "hello world"
-  fail:
+      - run: mkdir tmp && echo "hi" > tmp/test.txt
+      - persist_to_workspace:
+          root: .
+          paths:
+            - tmp
+  attach:
     docker:
       - image: circleci/node:9.6.1
     steps:
-      - run: exit 1
+      - attach_workspace:
+          at: tmp
+      - run: ls
 
 workflows:
-  pass-and-fail:
+  test:
     jobs:
-      - pass
-      - fail
+      - persist
+      - attach
 #version: 2.1
 #
 #jobs:
