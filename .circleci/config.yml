@@ -1,12 +1,22 @@
 version: 2.1
 
 jobs:
-  build:
+  pass:
     docker:
       - image: circleci/node:9.6.1
     steps:
       - run: echo "hello world"
+  fail:
+    docker:
+      - image: circleci/node:9.6.1
+    steps:
+      - run: exit 1
 
+workflows:
+  pass-and-fail:
+    jobs:
+      - pass
+      - fail
 #version: 2.1
 #
 #jobs:
