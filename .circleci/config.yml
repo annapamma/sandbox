@@ -14,7 +14,7 @@ jobs:
     machine: true
     steps:
       - attach_workspace:
-          at: tmp
+          at: .
       - run: ls tmp
       - run: cat tmp/test.txt
 
