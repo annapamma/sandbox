@@ -11,12 +11,12 @@ jobs:
           paths:
             - tmp
   attach:
-    docker:
-      - image: circleci/node:9.6.1
+    machine: true
     steps:
       - attach_workspace:
           at: tmp
-      - run: ls
+      - run: ls tmp
+      - run: echo tmp/test.txt
 
 workflows:
   test:
