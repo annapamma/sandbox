@@ -16,7 +16,7 @@ jobs:
       - attach_workspace:
           at: tmp
       - run: ls tmp
-      - run: echo tmp/test.txt
+      - run: cat tmp/test.txt
 
 workflows:
   test:
