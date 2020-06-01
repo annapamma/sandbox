@@ -1,17 +1,17 @@
-version: 2.1
-orbs:
-  node: circleci/node@2.1.1
+version: 2.0
+
 jobs:
-  install-node-12:
+  build:
     docker:
       - image: cimg/node:12.16.2
     steps:
-      - checkout
-      # - node/install-yarn:
-      #     version: 1.22.4
-      - run: node --version
-      - run: yarn --version
+      - run: echo 'hello'
+
 workflows:
-  install-n:
+  version: 2
+  build-test-deploy:
     jobs:
-      - install-node-12
+      - build:
+          filters:
+            tags:
+              only: /^config-test.*/
