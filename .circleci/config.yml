@@ -1,8 +1,17 @@
 version: 2.1
-
+orbs:
+  node: circleci/node@2.1.1
 jobs:
-  build:
-    machine:
-      image: windows-server-2019-vs2019:stable
+  install-node-12:
+    docker:
+      - image: cimg/node:12.16.2
     steps:
-      - echo 'hi'
+      - checkout
+      # - node/install-yarn:
+      #     version: 1.22.4
+      - run: node --version
+      - run: yarn --version
+workflows:
+  install-n:
+    jobs:
+      - install-node-12
