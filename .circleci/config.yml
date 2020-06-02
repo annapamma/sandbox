@@ -5,15 +5,16 @@ jobs:
     docker:
       - image: cimg/node:12.16.2
     steps:
-      - run: echo 'hello'
+      - run: echo "alias npm='node --max_old_space_size=2048 /usr/bin/npm'" >> $BASH_ENV
+      - run: cat $BASH_ENV
 
-workflows:
-  version: 2
-  build-test-deploy:
-    jobs:
-      - build:
-          filters:
-            tags:
-              only: /^some-test.*/
+#workflows:
+#  version: 2
+#  build-test-deploy:
+#    jobs:
+#      - build:
+#          filters:
+#            tags:
+#              only: /^some-test.*/
 
 # only: /^config-test.*/
