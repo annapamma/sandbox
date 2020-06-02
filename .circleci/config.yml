@@ -3,10 +3,11 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: cimg/node:12.16.2
+      - image: circleci/node:11-browsers
     steps:
       - run: echo "alias npm='node --max_old_space_size=2048 /usr/bin/npm'" >> $BASH_ENV
       - run: cat $BASH_ENV
+      - run: which node
 
 #workflows:
 #  version: 2
