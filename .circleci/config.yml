@@ -5,7 +5,7 @@ jobs:
     docker:
       - image: circleci/node:11-browsers
     steps:
-      - run: echo "alias npm='node --max_old_space_size=2048 /usr/bin/npm'" >> $BASH_ENV
+      - run: echo "alias npm='node --max_old_space_size=2048 /usr/local/bin/npm'" >> $BASH_ENV
       - run: cat $BASH_ENV
       - run: which npm
 
