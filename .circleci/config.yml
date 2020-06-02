@@ -7,7 +7,7 @@ jobs:
     steps:
       - run: echo "alias npm='node --max_old_space_size=2048 /usr/bin/npm'" >> $BASH_ENV
       - run: cat $BASH_ENV
-      - run: which node
+      - run: which npm
 
 #workflows:
 #  version: 2
