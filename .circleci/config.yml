@@ -17,7 +17,8 @@ jobs:
       - setup_remote_docker:
           docker_layer_caching: false # Only available in paid plan
       #- run: pip install -r requirements.txt
-      - run: pytest -v
+      - run: which pytest
+      - run: pip list
 
 workflows:
   main:
