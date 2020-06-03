@@ -1,21 +1,25 @@
 version: 2.1
+orbs:
+  python: circleci/python@0.2.1
 
 jobs:
-  build:
-    docker:
-      - image: circleci/node:11-browsers
+  build_and_test:
+    executor: python/default
+    working_directory: ~/workspace
+    #docker:
+    #  - image: circleci/python:latest
+    #    restart: on-failure # Restart the container if it exits due to an error
     steps:
-      - run: echo "alias npm='node --max_old_space_size=2048 /usr/local/bin/npm'" >> $BASH_ENV
-      - run: cat $BASH_ENV
-      - run: which npm
+      - checkout
+      - python/load-cache
+      - python/install-deps
+      - python/save-cache
+      - setup_remote_docker:
+          docker_layer_caching: false # Only available in paid plan
+      #- run: pip install -r requirements.txt
+      - run: pytest -v
 
-#workflows:
-#  version: 2
-#  build-test-deploy:
-#    jobs:
-#      - build:
-#          filters:
-#            tags:
-#              only: /^some-test.*/
-
-# only: /^config-test.*/
+workflows:
+  main:
+    jobs:
+      - build_and_test
