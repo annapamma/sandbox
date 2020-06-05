@@ -11,12 +11,11 @@ jobs:
     steps:
       - checkout
       - python/load-cache
-      - python/install-deps
+      - python/install-deps:
+          local: false
       - python/save-cache
       #- run: pip install -r requirements.txt
-      - run: sudo pip install -U pytest
       - run: pytest --version
-
 workflows:
   main:
     jobs:
