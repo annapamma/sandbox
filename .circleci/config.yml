@@ -11,12 +11,14 @@ jobs:
     steps:
       - checkout
       - run: pip install -r requirements.txt
-#      - python/load-cache
-#      - python/install-deps:
-#          local: false
-#      - python/save-cache
-      #- run: pip install -r requirements.txt
+      - save_cache:
+          key: 'cached_tools_/tmp/cached_tools/https://get.helm.sh/helm-v2.8.2-linux-amd64.tar.gz'
+          paths:
+            - requirements.txt
+      - restore_cache:
+          key: 'cached_tools_/tmp/cached_tools/https://get.helm.sh/helm-v2.8.2-linux-amd64.tar.gz'
       - run: pytest --version
+
 workflows:
   main:
     jobs:
