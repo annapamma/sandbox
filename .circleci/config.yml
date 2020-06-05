@@ -10,10 +10,11 @@ jobs:
     #    restart: on-failure # Restart the container if it exits due to an error
     steps:
       - checkout
-      - python/load-cache
-      - python/install-deps:
-          local: false
-      - python/save-cache
+      - run: pip install -r requirements.txt
+#      - python/load-cache
+#      - python/install-deps:
+#          local: false
+#      - python/save-cache
       #- run: pip install -r requirements.txt
       - run: pytest --version
 workflows:
