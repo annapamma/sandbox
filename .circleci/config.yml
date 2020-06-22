@@ -7,13 +7,9 @@ jobs:
   build:
     executor:
       name: win/default
-      shell: powershell.exe
     steps:
       - checkout
-      - run: systeminfo
       - run:
           name: "Check docker"
-          shell: powershell.exe
           command: |
-            docker info
-            docker run hello-world:nanoserver-1809
+            Invoke-WebRequest -URI https://www.python.org/ftp/python/3.8.1/python-3.8.1-embed-amd64.zip
