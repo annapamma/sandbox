@@ -1,25 +1,19 @@
 version: 2.1
+
 orbs:
-  python: circleci/python@0.2.1
+  win: circleci/windows@2.2.0
 
 jobs:
-  build_and_test:
-    executor: python/default
-    working_directory: ~/workspace
-    #  - image: circleci/python:latest
-    #    restart: on-failure # Restart the container if it exits due to an error
+  build:
+    executor:
+      name: win/default
+      shell: powershell.exe
     steps:
       - checkout
-#      - run: pip install -r requirements.txt
-      - save_cache:
-          key: 'cached_tools_/tmp/cached_tools/https://get.helm.sh/helm-v2.8.2-linux-amd64.tar.gz'
-          paths:
-            - requirements.txt
-      - restore_cache:
-          key: 'cached_tools_/tmp/cached_tools/https://get.helm.sh/helm-v2.8.2-linux-amd64.tar.gz'
-      - run: pytest --version
-
-workflows:
-  main:
-    jobs:
-      - build_and_test
+      - run: systeminfo
+      - run:
+          name: "Check docker"
+          shell: powershell.exe
+          command: |
+            docker info
+            docker run hello-world:nanoserver-1809
