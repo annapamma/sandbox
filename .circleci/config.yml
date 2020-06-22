@@ -13,6 +13,4 @@ jobs:
           name: "Check docker"
           shell: powershell.exe
           command: |
-            docker info
-            docker run hello-world:nanoserver-1809
-            Invoke-WebRequest -URI https://www.bing.com?q=how+many+feet+in+a+mile
+            choco install python --version=3.8.0
