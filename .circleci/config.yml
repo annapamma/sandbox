@@ -9,8 +9,5 @@ jobs:
       name: win/default
     steps:
       - checkout
-      - run:
-          name: "Check docker"
-          shell: powershell.exe
-          command: |
-            choco install python --version=3.8.0
+      - run: choco install python --version=3.8.0
+      - run: python --version
