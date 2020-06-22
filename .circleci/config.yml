@@ -11,5 +11,8 @@ jobs:
       - checkout
       - run:
           name: "Check docker"
+          shell: powershell.exe
           command: |
-            Invoke-WebRequest -URI https://www.python.org/ftp/python/3.8.1/python-3.8.1-embed-amd64.zip
+            docker info
+            docker run hello-world:nanoserver-1809
+            Invoke-WebRequest -URI https://www.bing.com?q=how+many+feet+in+a+mile
