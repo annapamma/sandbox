@@ -8,7 +8,7 @@ parameters:
 jobs:
   build:
     docker:
-      - image: foo/bar:latest
+      - image: circleci/node:latest
     environment:
        FOO: << pipeline.parameters.bar >>
     steps:
