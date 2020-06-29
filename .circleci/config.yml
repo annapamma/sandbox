@@ -2,8 +2,8 @@ version: 2.1
 
 parameters:
   bar:
-    type: env_var_name
-    default: 'fshkjsdhks'
+    type: string
+    default: 'bar'
 
 jobs:
   build:
