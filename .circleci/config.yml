@@ -2,7 +2,7 @@ version: 2.1
 
 parameters:
   bar:
-    type: string
+    type: env_var_name
     default: 'fshkjsdhks'
 
 jobs:
