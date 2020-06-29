@@ -1,13 +1,15 @@
 version: 2.1
 
-orbs:
-  win: circleci/windows@2.2.0
+parameters:
+  bar:
+    type: string
+    default: 'fshkjsdhks'
 
 jobs:
   build:
-    executor:
-      name: win/default
+    docker:
+      - image: foo/bar:latest
+    environment:
+       FOO: << pipeline.parameters.bar >>
     steps:
-      - checkout
-      - run: choco install python --version=3.8.0
-      - run: python --version
+      - run: echo ${FOO}
