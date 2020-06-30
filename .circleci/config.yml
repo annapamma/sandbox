@@ -6,28 +6,21 @@ commands:
       customer:
         type: string
         default: mycompany
-      environment:
-        type: string
-        default: prod
     steps:
       - run:
           name: Provision VPC and EKS cluster
-          command: |
-		    echo << parameters.customer >>-<< parameters.environment >>
+          command: echo << parameters.customer >>
 
 jobs:
   prep_k8s:
     docker:
       - image: circleci/node:14.4
+    parameters:
+      customer:
+        type: string
+        default: mycompany
     steps:
-      - provision-k8s:
-          parameters:
-		    customer:
-			  type: string
-			  default: mycompany
-		    environment:
-			  type: string
-			  default: prod
+      - provision-k8s
 
 workflows:
   version: 2
@@ -35,4 +28,3 @@ workflows:
     jobs:
       - prep_k8s:
           customer: 'BaringsBank'
-          environment: 'dev'
