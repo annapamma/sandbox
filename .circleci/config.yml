@@ -1,15 +1,38 @@
 version: 2.1
 
-parameters:
-  bar:
-    type: string
-    default: 'bar'
+commands:
+  provision-k8s:
+    parameters:
+      customer:
+        type: string
+        default: mycompany
+      environment:
+        type: string
+        default: prod
+    steps:
+      - run:
+          name: Provision VPC and EKS cluster
+          command: |
+		    echo << parameters.customer >>-<< parameters.environment >>
 
 jobs:
-  build:
+  prep_k8s:
     docker:
-      - image: circleci/node:latest
-    environment:
-       FOO: << pipeline.parameters.bar >>
+      - image: circleci/node:14.4
     steps:
-      - run: env | grep ${FOO}
+      - provision-k8s:
+          parameters:
+		    customer:
+			  type: string
+			  default: mycompany
+		    environment:
+			  type: string
+			  default: prod
+
+workflows:
+  version: 2
+  deploy_k8s_workflow:
+    jobs:
+      - prep_k8s:
+          customer: 'BaringsBank'
+          environment: 'dev'
