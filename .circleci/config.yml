@@ -20,7 +20,8 @@ jobs:
         type: string
         default: mycompany
     steps:
-      - provision-k8s
+      - provision-k8s:
+          customer: << parameters.customer >>
 
 workflows:
   version: 2
