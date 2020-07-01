@@ -5,5 +5,6 @@ jobs:
     docker:
       - image: annapamela/test-path:latest
     steps:
-      - run: echo -x $PATH
+      - run: echo $PATH
+      - run: gcloud --version
 
