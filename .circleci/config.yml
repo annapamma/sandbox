@@ -5,5 +5,5 @@ jobs:
     docker:
       - image: annapamela/test-path:latest
     steps:
-      - run: echo $PATH
+      - run: echo $SHELL
 
