@@ -1,31 +1,9 @@
 version: 2.1
 
-commands:
-  provision-k8s:
-    parameters:
-      customer:
-        type: string
-        default: mycompany
-    steps:
-      - run:
-          name: Provision VPC and EKS cluster
-          command: echo << parameters.customer >>
-
 jobs:
-  prep_k8s:
+  build:
     docker:
-      - image: circleci/node:14.4
-    parameters:
-      customer:
-        type: string
-        default: mycompany
+      - image: annapamela/test-path:latest
     steps:
-      - provision-k8s:
-          customer: << parameters.customer >>
+      - run: echo $PATH
 
-workflows:
-  version: 2
-  deploy_k8s_workflow:
-    jobs:
-      - prep_k8s:
-          customer: 'BaringsBank'
