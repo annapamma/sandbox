@@ -27,15 +27,15 @@ jobs:
             - "/ProgramData/chocolatey"
             - "C:/ProgramData"
             - "C:/Python27"
-      - run: |
-          C:\programdata\miniconda2\Scripts\conda.exe build .
-          cd C:\programdata\miniconda2\conda-bld\win-64\
-          mv rooster-mocap-1.0.0-py27*.tar.bz2 rooster-mocap-1.0.0-py27_0.tar.bz2
-      - run: |
-          ls
-          conda build .
-      - store_artifacts:
-          path: C:\programdata\miniconda2\conda-bld\win-64\rooster-mocap-1.0.0-py27_0.tar.bz2
-
-      - store_artifacts:
-          path: C:\tools\miniconda3\conda-bld\win-64\rooster-mocap-1.0.0-py37_0.tar.bz2
+#      - run: |
+#          C:\programdata\miniconda2\Scripts\conda.exe build .
+#          cd C:\programdata\miniconda2\conda-bld\win-64\
+#          mv rooster-mocap-1.0.0-py27*.tar.bz2 rooster-mocap-1.0.0-py27_0.tar.bz2
+#      - run: |
+#          ls
+#          conda build .
+#      - store_artifacts:
+#          path: C:\programdata\miniconda2\conda-bld\win-64\rooster-mocap-1.0.0-py27_0.tar.bz2
+#
+#      - store_artifacts:
+#          path: C:\tools\miniconda3\conda-bld\win-64\rooster-mocap-1.0.0-py37_0.tar.bz2
