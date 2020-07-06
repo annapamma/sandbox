@@ -5,3 +5,4 @@ jobs:
       xcode: 11.3.0
     steps:
       - run: echo 'hello world'
+      - run: osascript -e 'tell application "Google Chrome" to open location "file:///Users/t/uivision/demoautofill.html?direct=1&closeBrowser=1&savelog=demotestlog.txt"'
