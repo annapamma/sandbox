@@ -9,4 +9,7 @@ jobs:
       name: win/default
       shell: powershell.exe
     steps:
-      - run: echo "hello world"
+      - run: which python2
+      - run: which python
+      - run: python --version
+      - run: python2 --version
