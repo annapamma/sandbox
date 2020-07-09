@@ -8,4 +8,5 @@ jobs:
     executor:
       name: win/default
       shell: powershell.exe
-  run: echo "hello world"
+    steps:
+      - run: echo "hello world"
