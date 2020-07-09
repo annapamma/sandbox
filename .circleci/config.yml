@@ -1,7 +1,11 @@
 version: 2.1
+
+orbs:
+  win: circleci/windows@2.2.0
+
 jobs:
   build:
-    docker:
-      - image: circleci/node:latest
-    steps:
-      - run: echo "{'hash':'${CIRCLE_SHA1}'}"
+    executor:
+      name: win/default
+      shell: powershell.exe
+  run: echo "hello world"
