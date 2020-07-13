@@ -1,15 +1,8 @@
 version: 2.1
 
-orbs:
-  win: circleci/windows@2.2.0
-
 jobs:
   build:
-    executor:
-      name: win/default
-      shell: powershell.exe
+    machine:
+      image: ubuntu-1604:201903-01
     steps:
-      - run: which python2
-      - run: which python
-      - run: python --version
-      - run: python2 --version
+      - run: docker build -t testgo .
