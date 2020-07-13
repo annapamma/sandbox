@@ -27,7 +27,13 @@ jobs:
                   \"number_of_retries\": $((<<pipeline.parameters.number_of_retries>> + 1)) \
                 } \
               }" \
-              https://circleci.com/api/v2/project/github/Popmenu/popmenu/pipeline?circle-token=545925634d1956b64cfe0bfc53a94ce8154d170f
-              curl -X POST https://circleci.com/api/v2/workflow/${CIRCLE_WORKFLOW_ID}/cancel?circle-token=545925634d1956b64cfe0bfc53a94ce8154d170f
+              https://circleci.com/api/v2/project/github/annapamma/sandbox/pipeline?circle-token=
+              curl -X POST https://circleci.com/api/v2/workflow/${CIRCLE_WORKFLOW_ID}/cancel?circle-token=27b39c103f92d0ed0ed300cd504984fc75b03706
             fi
           when: on_fail
+
+workflow:
+  test:
+    jobs:
+      - build:
+          context: context
