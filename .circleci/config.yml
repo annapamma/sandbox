@@ -40,7 +40,7 @@ jobs:
     steps:
       - run: sleep 1000
 
-workflow:
+workflows:
   test:
     jobs:
       - other-job
