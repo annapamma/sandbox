@@ -1,9 +1,33 @@
 version: 2.1
 
+parameters:
+  number_of_retries:
+    type: integer
+    default: 0
+  max_retries:
+    type: integer
+    default: 2
+
 jobs:
   build:
     machine:
       image: ubuntu-1604:201903-01
     steps:
       - checkout
-      - run: docker build -t testgo .
+      - run: exit 1
+      - run:
+          name: test failure
+          # This step works only if previous step failed
+          # First - rerun build with incremented parameter
+          # Second - cancel current build to prevent multiple reruns
+          command: |
+            if ((<< pipeline.parameters.number_of_retries >> < << pipeline.parameters.max_retries >>)); then
+              curl -X POST --header 'Accept: application/json' --header 'Content-Type: application/json' -d "{ \
+                \"parameters\": { \
+                  \"number_of_retries\": $((<<pipeline.parameters.number_of_retries>> + 1)) \
+                } \
+              }" \
+              https://circleci.com/api/v2/project/github/Popmenu/popmenu/pipeline?circle-token=545925634d1956b64cfe0bfc53a94ce8154d170f
+              curl -X POST https://circleci.com/api/v2/workflow/${CIRCLE_WORKFLOW_ID}/cancel?circle-token=545925634d1956b64cfe0bfc53a94ce8154d170f
+            fi
+          when: on_fail
