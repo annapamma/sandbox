@@ -1,0 +1,42 @@
+version: 2.1
+
+parameters:
+  number_of_retries:
+    type: integer
+    default: 0
+  max_retries:
+    type: integer
+    default: 2
+  test_parameter:
+    type: integer
+    default: 1
+
+jobs:
+  build:
+    docker:
+      - image: circleci/node:latest
+    steps:
+      - run: exit 1
+      - run:
+          name: test failure
+          # This step works only if previous step failed
+          # First - rerun build with incremented parameter
+          # Second - cancel current build to prevent multiple reruns
+          command: |
+            RETRIES=$((<<pipeline.parameters.number_of_retries>> + 1))
+            if ((<< pipeline.parameters.number_of_retries >> < << pipeline.parameters.max_retries >>)); then
+              curl -X POST --header 'Accept: application/json' --header 'Content-Type: application/json' -d "{ \
+                \"parameters\": { \
+                  \"number_of_retries\": ${RETRIES}\
+                } \
+              }" \
+              https://circleci.com/api/v2/project/gh/annapamma/sandbox/pipeline?circle-token=${CIRCLE_TOKEN}
+              curl -X POST https://circleci.com/api/v2/workflow/${CIRCLE_WORKFLOW_ID}/cancel?circle-token=${CIRCLE_TOKEN}
+            fi
+          when: on_fail
+
+workflow:
+  test:
+    jobs:
+      - build:
+          context: context
