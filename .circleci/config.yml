@@ -34,9 +34,16 @@ jobs:
               curl -X POST https://circleci.com/api/v2/workflow/${CIRCLE_WORKFLOW_ID}/cancel?circle-token=${CIRCLE_TOKEN}
             fi
           when: on_fail
+  other-job:
+    docker:
+      - image: circleci/node:latest
+    steps:
+      - run: sleep 1000
 
 workflow:
   test:
     jobs:
       - build:
           context: context
+      - other-job
+
