@@ -43,7 +43,6 @@ jobs:
 workflow:
   test:
     jobs:
+      - other-job
       - build:
           context: context
-      - other-job
-
