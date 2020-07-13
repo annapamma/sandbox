@@ -7,6 +7,9 @@ parameters:
   max_retries:
     type: integer
     default: 2
+  test_parameter:
+    type: integer
+    default: 1
 
 jobs:
   build:
