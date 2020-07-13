@@ -7,3 +7,15 @@ jobs:
     steps:
       - checkout
       - run: docker build -t testgo .
+
+workflows:
+   testgo:
+     triggers:
+       - schedule:
+           cron: "0 * * * *"
+           filters:
+             branches:
+               only:
+                 - master
+     jobs:
+       - build
