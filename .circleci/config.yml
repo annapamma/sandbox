@@ -44,5 +44,5 @@ workflow:
   test:
     jobs:
       - other-job
-      - build:
-          context: context
+#      - build:
+#          context: context
