@@ -1,23 +1,19 @@
 version: 2.1
 
+parameters:
+  test_parameter:
+    type: integer
+    default: 1
+
 jobs:
   build:
     docker:
-      - image: circleci/node:9.6.1
+      - image: circleci/node:latest
     steps:
-      - run: echo "hello world"
+      - run: echo << pipeline.parameters.test_parameter >>
 
-#version: 2.1
-#
-#jobs:
-#    build:
-#        docker:
-#          - image: circleci/node:9.6.1
-#        steps:
-#          - run: bash --version
-#          - run: mkdir 1 && mkdir 1/2 && mkdir 1/2/3
-#          - run: shopt -s globstar
-#          - run: |
-#              for f in 1/**; do
-#                echo "$f"
-#              done
+workflow:
+  test:
+    jobs:
+      - build:
+          context: context
