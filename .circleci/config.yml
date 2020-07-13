@@ -21,10 +21,12 @@ jobs:
           # First - rerun build with incremented parameter
           # Second - cancel current build to prevent multiple reruns
           command: |
+            RETRIES=$((<<pipeline.parameters.number_of_retries>> + 1))
+            echo ${RETRIES}
             if ((<< pipeline.parameters.number_of_retries >> < << pipeline.parameters.max_retries >>)); then
               curl -X POST --header 'Accept: application/json' --header 'Content-Type: application/json' -d "{ \
                 \"parameters\": { \
-                  \"number_of_retries\": $((<<pipeline.parameters.number_of_retries>> + 1)) \
+                  \"number_of_retries\": ${RETRIES}\
                 } \
               }" \
               https://circleci.com/api/v2/project/github/annapamma/sandbox/pipeline?circle-token=${CIRCLE_TOKEN}
