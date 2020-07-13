@@ -1,0 +1,19 @@
+version: 2.1
+
+parameters:
+  test_parameter:
+    type: integer
+    default: 1
+
+jobs:
+  build:
+    docker:
+      - image: circleci/node:latest
+    steps:
+      - run: echo << pipeline.parameters.test_parameter >>
+
+workflow:
+  test:
+    jobs:
+      - build:
+          context: context
