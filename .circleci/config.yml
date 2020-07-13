@@ -1,19 +1,41 @@
-version: 2.1
+version: 2.1 # Use version 2.1 to enable orb usage.
 
-parameters:
-  test_parameter:
-    type: integer
-    default: 1
+orbs:
+  win: circleci/windows@2.2.0 # The Windows orb give you everything you need to start using the Windows executor.
 
 jobs:
-  build:
-    docker:
-      - image: circleci/node:latest
-    steps:
-      - run: echo << pipeline.parameters.test_parameter >>
+  build: # name of your job
+    executor:
+      name: win/default # executor type
+      size: "medium" # resource class, can be "medium", "large", "xlarge", "2xlarge", defaults to "medium" if not specified
 
-workflow:
-  test:
-    jobs:
-      - build:
-          context: context
+    steps:
+      - run: echo 'hello'
+      # Commands are run in a Windows virtual machine environment
+#      - restore_cache:
+#          keys:
+#            - win-py-tools-{{ .Branch }}-{{ checksum ".circleci/config.yml" }}
+#            - win-py-tools-{{ .Branch }}
+#            - win-py-tools
+#      - run: choco install wixtoolset
+#      - run: choco install miniconda -y
+#      - run: C:\programdata\miniconda2\Scripts\conda.exe install conda-build -y
+#      - run: conda install conda-build -y
+#      - save_cache:
+#          key: win-py-tools-{{ .Branch }}-{{ checksum ".circleci/config.yml" }}
+#          paths:
+#            - "/ProgramData/chocolatey"
+#            - "C:/ProgramData"
+#            - "C:/Python27"
+#      - run: |
+#          C:\programdata\miniconda2\Scripts\conda.exe build .
+#          cd C:\programdata\miniconda2\conda-bld\win-64\
+#          mv rooster-mocap-1.0.0-py27*.tar.bz2 rooster-mocap-1.0.0-py27_0.tar.bz2
+#      - run: |
+#          ls
+#          conda build .
+#      - store_artifacts:
+#          path: C:\programdata\miniconda2\conda-bld\win-64\rooster-mocap-1.0.0-py27_0.tar.bz2
+#
+#      - store_artifacts:
+#          path: C:\tools\miniconda3\conda-bld\win-64\rooster-mocap-1.0.0-py37_0.tar.bz2

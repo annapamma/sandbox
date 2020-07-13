@@ -10,14 +10,14 @@ jobs:
       size: "medium" # resource class, can be "medium", "large", "xlarge", "2xlarge", defaults to "medium" if not specified
 
     steps:
-      - checkout
+      - run: echo 'hello'
       # Commands are run in a Windows virtual machine environment
 #      - restore_cache:
 #          keys:
 #            - win-py-tools-{{ .Branch }}-{{ checksum ".circleci/config.yml" }}
 #            - win-py-tools-{{ .Branch }}
 #            - win-py-tools
-      - run: choco install wixtoolset
+#      - run: choco install wixtoolset
 #      - run: choco install miniconda -y
 #      - run: C:\programdata\miniconda2\Scripts\conda.exe install conda-build -y
 #      - run: conda install conda-build -y
