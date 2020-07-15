@@ -1,8 +1,5 @@
 version: 2.1 # Use version 2.1 to enable orb usage.
 
-orbs:
-  slack: circleci/slack@3.4.2
-
 parameters:
   file_id:
     type: string
@@ -19,10 +16,12 @@ jobs:
       - run:
           command: python pa.py << pipeline.parameters.file_id >>
           no_output_timeout: 2h
+      - run:
+          command: python pa_fail.py << pipeline.parameters.file_id >>
+          when: on_fail
 
 workflows:
   run-pa:
     jobs:
       - build
-      - slack/notify-on-failure
 
