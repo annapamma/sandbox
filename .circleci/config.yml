@@ -3,7 +3,7 @@ version: 2.1 # Use version 2.1 to enable orb usage.
 parameters:
   file_id:
     type: string
-    default: ''
+    default: 'test2'
 
 jobs:
   build:
@@ -13,4 +13,4 @@ jobs:
       - checkout
       - run: python --version
       - run: pip install -r requirements.txt
-      - run: python pa.py << pipeline.parameters.file_id >> 
+      - run: python pa.py << pipeline.parameters.file_id >>
