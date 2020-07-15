@@ -12,7 +12,16 @@ jobs:
     steps:
       - checkout
       - run: python --version
+#      - restore_cache:
+#          keys:
+#            - v1-{{ checksum "requirements.txt" }}
+#            - v1-
       - run: pip install -r requirements.txt
+      - run: pip show numpy
+#      - save_cache:
+#          key: v1-{{ checksum "requirements.txt" }}
+#          paths:
+#            - "/usr/local/lib/python3.7/site-packages"
       - run:
           command: python pa.py << pipeline.parameters.file_id >>
           no_output_timeout: 2h
