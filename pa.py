@@ -332,7 +332,7 @@ def process():
     """.format(db, mode, direction)
     sender_email = "pathwayassessorresults@gmail.com"
     password = os.getenv('PA_CIRCLE')
-
+    print(len(password))
     # Create a multipart message and set headers
     message = MIMEMultipart()
     message["From"] = sender_email
@@ -340,19 +340,19 @@ def process():
     message["Subject"] = subject
     message.attach(MIMEText(body, "plain"))
 
-    if direction == 'difference':
-        ascending = run_pa(mode, kwargs, ascending=True, rank_method='max')
-        descending = run_pa(mode, kwargs, ascending=False, rank_method='min')
-        res = ascending - descending
-        attach_to_email(res, f"ipas_{db}_{mode}_difference.csv", message)
-        attach_to_email(ascending, f'ipas_{db}_{mode}_ascending.csv', message)
-        attach_to_email(descending, f'ipas_{db}_{mode}_descending.csv', message)
-    elif direction == 'asc':
-        ascending = run_pa(mode, kwargs, ascending=True, rank_method=rank_method)
-        attach_to_email(ascending, f'ipas_{db}_{mode}_ascending.csv', message)
-    else:
-        descending = run_pa(mode, kwargs, ascending=False, rank_method=rank_method)
-        attach_to_email(descending, f'ipas_{db}_{mode}_descending.csv', message)
+    # if direction == 'difference':
+    #     ascending = run_pa(mode, kwargs, ascending=True, rank_method='max')
+    #     descending = run_pa(mode, kwargs, ascending=False, rank_method='min')
+    #     res = ascending - descending
+    #     attach_to_email(res, f"ipas_{db}_{mode}_difference.csv", message)
+    #     attach_to_email(ascending, f'ipas_{db}_{mode}_ascending.csv', message)
+    #     attach_to_email(descending, f'ipas_{db}_{mode}_descending.csv', message)
+    # elif direction == 'asc':
+    #     ascending = run_pa(mode, kwargs, ascending=True, rank_method=rank_method)
+    #     attach_to_email(ascending, f'ipas_{db}_{mode}_ascending.csv', message)
+    # else:
+    #     descending = run_pa(mode, kwargs, ascending=False, rank_method=rank_method)
+    #     attach_to_email(descending, f'ipas_{db}_{mode}_descending.csv', message)
 
     text = message.as_string()
     with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
