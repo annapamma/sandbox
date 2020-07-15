@@ -32,5 +32,5 @@ jobs:
 workflows:
   run-pa:
     jobs:
-      - build
-
+      - build:
+          context: context
