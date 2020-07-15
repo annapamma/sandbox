@@ -7,3 +7,5 @@ jobs:
     steps:
       - checkout
       - run: python --version
+      - run: pip install -r requirements.txt
+      - run: python pa.py
