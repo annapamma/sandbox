@@ -198,10 +198,12 @@ def pa_stats(
     bg_genes_df = bg_genes(expression_ranks_df)
 
     sample_order = expression_table_df.columns
-
+    asc_str = 'descending'
+    if ascending:
+        asc_str = 'ascending'
     # perform analysis for each pathway
     for i, pathway in enumerate(pathways):
-        print(f"{pathway} -- {i}/{len(pathways)} -- {mode}")
+        print(f"{pathway} -- {i}/{len(pathways)} -- {asc_str}")
         pathway_ranks_df = pathway_ranks(pathways[pathway], expression_ranks_df, rank_method=rank_method)
         effective_pathway_df = effective_pathway(pathway_ranks_df)
         b_df = b(expression_ranks_df, pathway_ranks_df)
