@@ -1,5 +1,6 @@
 import io
 import json
+import os
 import sys
 import urllib.request
 
@@ -330,7 +331,7 @@ def process():
 
     """.format(db, mode, direction)
     sender_email = "pathwayassessorresults@gmail.com"
-    password = "wkmasmlkmwgyleqx"
+    password = os.getenv('PA_CIRCLE')
 
     # Create a multipart message and set headers
     message = MIMEMultipart()

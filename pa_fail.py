@@ -1,4 +1,5 @@
 import json
+import os
 import pickle
 import sys
 import urllib.request
@@ -23,7 +24,7 @@ def process():
         You can also reach out to anna.calinawan@mssm.edu about file {}
     """.format(file_id)
     sender_email = "pathwayassessorresults@gmail.com"
-    password = "wkmasmlkmwgyleqx"
+    password = os.getenv('PA_CIRCLE')
 
     # Create a multipart message and set headers
     message = MIMEMultipart()
