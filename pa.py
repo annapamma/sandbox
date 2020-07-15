@@ -50,9 +50,9 @@ def run_pa(mode, kwargs, ascending, rank_method):
     return res
 
 
-def process(request):
+def process():
     context = ssl.create_default_context()
-    file_id = request.args.get('file_id')
+    file_id = sys.argv[1]
     urllib.request.urlretrieve(f'http://pathwayassessor.org/expression_table/{file_id}', '/tmp/tmp.pkl')
     data = pickle.load(open('/tmp/tmp.pkl', 'rb'))
     expression_table = data['expression_table']
@@ -113,15 +113,16 @@ def process(request):
         Response object using
         `make_response <http://flask.pocoo.org/docs/1.0/api/#flask.Flask.make_response>`.
     """
-    request_json = request.get_json()
-    if request.args and 'message' in request.args:
-        return request.args.get('message')
-    elif request_json and 'message' in request_json:
-        return request_json['message']
-    else:
-        return json.dumps({'OK': file_id})
+    # request_json = request.get_json()
+    # if request.args and 'message' in request.args:
+    #     return request.args.get('message')
+    # elif request_json and 'message' in request_json:
+    #     return request_json['message']
+    # else:
+    return json.dumps({'OK': file_id})
 
 
 if __name__ == '__main__':
     print('test!!')
     print(sys.argv[1])
+    process()

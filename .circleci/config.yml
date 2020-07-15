@@ -3,7 +3,7 @@ version: 2.1 # Use version 2.1 to enable orb usage.
 parameters:
   file_id:
     type: string
-    default: 'test2'
+    default: '25196_20200714232853'
 
 jobs:
   build:
