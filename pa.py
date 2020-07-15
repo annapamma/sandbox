@@ -1,6 +1,7 @@
 import io
 import json
 import pickle
+import sys
 import urllib.request
 
 import pathway_assessor as pa
@@ -123,3 +124,4 @@ def process(request):
 
 if __name__ == '__main__':
     print('test!!')
+    print(sys.argv[1])
