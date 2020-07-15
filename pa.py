@@ -178,88 +178,6 @@ def validate_pathways(pw_dict):
     return True
 
 
-def all(
-        expression_table,
-        pathways=None,
-        db='kegg',
-        geometric=True,
-        min_p_val=True,
-        ascending=True,
-        rank_method='max',
-        rmax=False,
-        g=10
-):
-    if not pathways:
-        pathways = db_pathways_dict(db)
-    else:
-        validate_pathways(pathways)
-
-    harmonic_averages = [None] * len(pathways)
-    geometric_averages = []
-    min_p_vals = []
-
-    if geometric:
-        geometric_averages = [None] * len(pathways)
-    if min_p_val:
-        min_p_vals = [None] * len(pathways)
-
-    expression_table_df = processed_expression_table(expression_table)
-    expression_ranks_df = expression_ranks(expression_table_df, rmax=rmax, g=g, ascending=ascending, rank_method=rank_method)
-    bg_genes_df = bg_genes(expression_ranks_df)
-
-    sample_order = expression_table_df.columns
-
-    # perform analysis for each pathway
-    for i, pathway in enumerate(pathways):
-        print('starting: {}'.format(pathway))
-        pathway_ranks_df = pathway_ranks(pathways[pathway], expression_ranks_df, rank_method=rank_method)
-        effective_pathway_df = effective_pathway(pathway_ranks_df)
-        b_df = b(expression_ranks_df, pathway_ranks_df)
-        c_df = c(effective_pathway_df, pathway_ranks_df)
-        d_df = d(bg_genes_df, pathway_ranks_df, b_df, c_df)
-
-        sample_2x2_df = sample_2x2(
-            pathway_ranks_df.to_dict(),
-            b_df.to_dict(),
-            c_df.to_dict(),
-            d_df.to_dict()
-        )
-        p_values_df = p_values(sample_2x2_df)
-
-        # Harmonic averaging is default
-        harmonic_averages_series = neg_log(p_values_df.apply(harmonic_average).loc[sample_order])
-        harmonic_averages_series.name = pathway
-        harmonic_averages[i] = harmonic_averages_series
-
-        if geometric:
-            geometric_averages_series = neg_log(p_values_df.apply(geometric_average).loc[sample_order])
-            geometric_averages_series.name = pathway
-            geometric_averages[i] = geometric_averages_series
-        if min_p_val:
-            min_p_vals_series = neg_log(p_values_df.min().loc[sample_order])
-            min_p_vals_series.name = pathway
-            min_p_vals[i] = min_p_vals_series
-        print('finished: {}'.format(pathway))
-
-    harmonic_averages_df = pd.concat(harmonic_averages, axis=1).T
-
-    if geometric:
-        geometric_averages_df = pd.concat(geometric_averages, axis=1).T
-    else:
-        geometric_averages_df = None
-
-    if min_p_val:
-        min_p_vals_df = pd.concat(min_p_vals, axis=1).T
-    else:
-        min_p_vals_df = None
-
-    return {
-               'harmonic': harmonic_averages_df,
-               'geometric': geometric_averages_df,
-                'min_p_val': min_p_vals_df
-    }
-
-
 def pa_stats(
         expression_table,
         mode='harmonic',
@@ -283,7 +201,7 @@ def pa_stats(
 
     # perform analysis for each pathway
     for i, pathway in enumerate(pathways):
-        print(f"{pathway} -- {i}/{len(pathways)}")
+        print(f"{pathway} -- {i}/{len(pathways)} -- {mode}")
         pathway_ranks_df = pathway_ranks(pathways[pathway], expression_ranks_df, rank_method=rank_method)
         effective_pathway_df = effective_pathway(pathway_ranks_df)
         b_df = b(expression_ranks_df, pathway_ranks_df)
