@@ -1,10 +1,7 @@
 import io
 import json
-# import pickle
 import sys
 import urllib.request
-
-import pathway_assessor as pa
 
 import smtplib, ssl
 from email.mime.base import MIMEBase
@@ -286,7 +283,7 @@ def pa_stats(
 
     # perform analysis for each pathway
     for i, pathway in enumerate(pathways):
-        print(pathway)
+        print(f"{pathway} -- {i}/{len(pathways)}")
         pathway_ranks_df = pathway_ranks(pathways[pathway], expression_ranks_df, rank_method=rank_method)
         effective_pathway_df = effective_pathway(pathway_ranks_df)
         b_df = b(expression_ranks_df, pathway_ranks_df)
