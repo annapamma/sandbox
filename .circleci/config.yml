@@ -22,7 +22,7 @@ jobs:
             - /.circleci/
       - restore_cache:
           keys:
-            - apk-{{ << parameters.previous-build-num >> }}
+            - apk-{{ << pipeline.parameters.previous-build-num >> }}
       # Commands are run in a Windows virtual machine environment
 #      - restore_cache:
 #          keys:
