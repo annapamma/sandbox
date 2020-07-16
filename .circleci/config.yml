@@ -17,8 +17,9 @@ jobs:
 #            - win-py-tools-{{ .Branch }}-{{ checksum ".circleci/config.yml" }}
 #            - win-py-tools-{{ .Branch }}
 #            - win-py-tools
-      - run: choco install circleci-cli -y
-      - run: circleci diagnostic
+      - store_artifacts:
+          path: .
+          destination: /.circleci/
 #      - run: choco install miniconda -y
 #      - run: C:\programdata\miniconda2\Scripts\conda.exe install conda-build -y
 #      - run: conda install conda-build -y
