@@ -19,9 +19,9 @@ jobs:
           $BASEPATH = "artifacts"
 
           $response = Invoke-RestMethod -Uri https://circleci.com/api/v1.1/project/$VCS_TYPE/$USERNAME/$PROJECT/$BUILD_NUMBER/artifacts?circle-token=$env:CIRCLE_TOKEN -Method GET -ContentType 'application/json' -UseBasicParsing -Header @{"Accept" = "application/json"}
-
+          echo $response
           foreach ($i in $response) {
-          $PATH = $(Split-Path -Path "$($BASEPATH)\$($i.path)")
+            $PATH = $(Split-Path -Path "$($BASEPATH)\$($i.path)")
 
             if (-Not ( Test-Path $PATH) ) {
               write-host "Creating folder: $($PATH)"
