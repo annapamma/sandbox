@@ -30,11 +30,9 @@ jobs:
   build:
     executor: python/default
     steps:
-      - when:
-          steps:
-            - checkout
-            - python/load-cache
-            - run: which shovel
+      - checkout
+      - python/load-cache
+      - run: which shovel
 
 workflows:
   main:
