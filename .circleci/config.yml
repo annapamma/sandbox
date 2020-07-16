@@ -11,15 +11,16 @@ jobs:
 
     steps:
       - checkout
+      - run: dir .circleci | % {Get-Permissions -path $_.fullname}
       # Commands are run in a Windows virtual machine environment
 #      - restore_cache:
 #          keys:
 #            - win-py-tools-{{ .Branch }}-{{ checksum ".circleci/config.yml" }}
 #            - win-py-tools-{{ .Branch }}
 #            - win-py-tools
-      - store_artifacts:
-          path: .
-          destination: /.circleci/
+#      - store_artifacts:
+#          path: app/build/outputs/apk/
+#          destination: /.circleci/
 #      - run: choco install miniconda -y
 #      - run: C:\programdata\miniconda2\Scripts\conda.exe install conda-build -y
 #      - run: conda install conda-build -y
