@@ -1,5 +1,10 @@
 version: 2.1 # Use version 2.1 to enable orb usage.
 
+parameters:
+  previous-build-num:
+    type: integer
+    default: 0
+
 orbs:
   win: circleci/windows@2.2.0 # The Windows orb give you everything you need to start using the Windows executor.
 
@@ -15,6 +20,9 @@ jobs:
           key: apk-{{ .BuildNum }}
           paths:
             - /.circleci/
+      - restore_cache:
+          keys:
+            - apk-{{ << parameters.previous-build-num >> }}
       # Commands are run in a Windows virtual machine environment
 #      - restore_cache:
 #          keys:
