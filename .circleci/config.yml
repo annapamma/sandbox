@@ -28,11 +28,12 @@ parameters:
 
 jobs:
   build:
-    executor: python/default
+    docker:
+      - image: circleci/python:3.8.3
     steps:
       - checkout
       - python/load-cache
-      - run: which shovel
+      - run: pip install shovel
 
 workflows:
   main:
