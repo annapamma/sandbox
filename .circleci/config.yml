@@ -11,7 +11,26 @@ jobs:
 
     steps:
       - checkout
-      - run: dir .circleci | % {Get-Permissions -path $_.fullname}
+      - run: |
+          $USERNAME = "annapamma"
+          $VCS_TYPE = "github"
+          $BUILD_NUMBER = "602"
+          $PROJECT = "sandbox"
+          $BASEPATH = "tmp"
+
+          $response = Invoke-RestMethod -Uri https://circleci.com/api/v1.1/project/$VCS_TYPE/$USERNAME/$PROJECT/$BUILD_NUMBER/artifacts?circle-token=$env:CIRCLE_TOKEN -Method GET -ContentType 'application/json' -UseBasicParsing -Header @{"Accept" = "application/json"}
+
+          foreach ($i in $response) {
+          $PATH = $(Split-Path -Path "$($BASEPATH)\$($i.path)")
+
+            if (-Not ( Test-Path $PATH) ) {
+              write-host "Creating folder: $($PATH)"
+              New-Item -ItemType Directory -Force -Path "$($PATH)"
+            }
+
+            Write-Host "Saving artifact $($i.pretty_path) to file: $($BASEPATH)\$($i.path)"
+            Invoke-RestMethod "$($i.url)?circle-token=$($env:CIRCLE_TOKEN)" -UseBasicParsing -OutFile "$($BASEPATH)\$($i.path)"
+          }
       # Commands are run in a Windows virtual machine environment
 #      - restore_cache:
 #          keys:
