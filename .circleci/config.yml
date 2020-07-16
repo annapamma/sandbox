@@ -12,7 +12,7 @@ jobs:
     steps:
       - checkout
       - save_cache:
-          key: v1-myapp-{{ ${CIRCLE_BUILD_NUM} }}
+          key: apk-{{ .BuildNum }}
           paths:
             - /.circleci/
       # Commands are run in a Windows virtual machine environment
