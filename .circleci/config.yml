@@ -1,42 +1,12 @@
 version: 2.1
 
 orbs:
-  python: circleci/python@0.3.2
-
-parameters:
-  branch:
-    type: string
-    default: "master"
-  mobile:
-    type: boolean
-    default: true
-  desktop:
-    type: boolean
-    default: true
-  tablet:
-    type: boolean
-    default: true
-  tag:
-    type: string
-    default: ''
-  feature:
-    type: string
-    default: 'all'
-  url:
-    type: string
-    default: 'https://pre-prod.vehiculum.de'
+  win: circleci/windows@2.3.0
 
 jobs:
   build:
-    docker:
-      - image: circleci/python:3.8.3
+    executor:
+      name: win/default
+      size: "medium" # can be "medium", "large", "xlarge", "2xlarge"
     steps:
-      - checkout
-      - run: |
-          curl -X GET "https://circleci.com/api/v2/workflow/${CIRCLE_WORKFLOW_JOB_ID}" \
-          -H 'Accept: application/json'
-
-workflows:
-  main:
-    jobs:
-      - build
+      - run: Write-Host 'Hello, Windows'
