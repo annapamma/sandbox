@@ -8,4 +8,5 @@ jobs:
     docker:
       - image: circleci/node
     steps:
+      - checkout
       - run: echo $(git log --format=oneline -n 1 $CIRCLE_SHA1)
