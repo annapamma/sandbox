@@ -12,4 +12,4 @@ jobs:
           echo "Commit subject: ${COMMIT_SUBJECT}"
           echo "username: ${WP_ORG_USERNAME}"
           echo ${WP_ORG_USERNAME} >> ${CIRCLE_SHELL_ENV}
-      - run: echo ${WP_ORG_USERNAME}
+      - run: echo $WP_ORG_USERNAME
