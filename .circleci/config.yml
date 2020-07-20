@@ -5,8 +5,7 @@ orbs:
 
 jobs:
   build:
-    executor:
-      name: win/default
-      size: "xlarge" # can be "medium", "large", "xlarge", "2xlarge"
+    docker:
+      - image: circleci/node
     steps:
-      - run: Write-Host 'Hello, Windows'
+      - run: echo $(git log --format=oneline -n 1 $CIRCLE_SHA1)
