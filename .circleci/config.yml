@@ -9,4 +9,8 @@ jobs:
       - image: circleci/node
     steps:
       - checkout
-      - run: echo $(git log --format=oneline -n 1 $CIRCLE_SHA1)
+      - run: |
+          COMMIT_SUBJECT=`git log -1 --pretty=%s.`
+          WP_ORG_USERNAME=`echo ${COMMIT_SUBJECT} | sed -En 's/.*\[wp_org_username:\].*/\1/p'`
+          echo "Commit subject: ${COMMIT_SUBJECT}"
+          echo "username: ${WP_ORG_USERNAME}"
