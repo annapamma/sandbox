@@ -11,5 +11,5 @@ jobs:
           WP_ORG_USERNAME=`echo ${COMMIT_SUBJECT} | sed 's/.*\[wp_org_username:\([^]]*\)\].*/\1/g'`
           echo "Commit subject: ${COMMIT_SUBJECT}"
           echo "username: ${WP_ORG_USERNAME}"
-          echo ${WP_ORG_USERNAME} >> ${CIRCLE_SHELL_ENV}
+          echo "WP_ORG_USERNAME=${WP_ORG_USERNAME}" >> ${CIRCLE_SHELL_ENV}
       - run: echo $WP_ORG_USERNAME
