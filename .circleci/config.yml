@@ -32,8 +32,9 @@ jobs:
       - image: circleci/python:3.8.3
     steps:
       - checkout
-      - python/load-cache
-      - run: pip install shovel
+      - run: |
+          curl -X GET "https://circleci.com/api/v2/workflow/${CIRCLE_WORKFLOW_JOB_ID}" \
+          -H 'Accept: application/json'
 
 workflows:
   main:
