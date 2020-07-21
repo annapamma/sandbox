@@ -5,11 +5,7 @@ jobs:
     docker:
       - image: circleci/node
     steps:
-      - checkout
-      - run: |
-          COMMIT_SUBJECT=`git log -1 --pretty=%s.`
-          WP_ORG_USERNAME=`echo ${COMMIT_SUBJECT} | sed 's/.*\[wp_org_username:\([^]]*\)\].*/\1/g'`
-          echo "Commit subject: ${COMMIT_SUBJECT}"
-          echo "username: ${WP_ORG_USERNAME}"
-          echo "WP_ORG_USERNAME=${WP_ORG_USERNAME}" >> ${CIRCLE_SHELL_ENV}
-      - run: echo $WP_ORG_USERNAME
+      - run: echo "boop" > artifact.txt
+      - store_artifacts:
+          path: tmp
+          destination: artifact.txt
