@@ -10,4 +10,5 @@ jobs:
           ~/gcloud/google-cloud-sdk/bin/gcloud components install app-engine-java
           echo 'export PATH="/usr/lib/google-cloud-sdk/bin:$PATH"' >> $BASH_ENV
       - run: echo 'y' | sudo sh ~/gcloud/google-cloud-sdk/install.sh
+      - run: gcloud --version
 
