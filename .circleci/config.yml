@@ -3,15 +3,11 @@ version: 2.1
 parameters:
   image-test:
     type: string
-    default: 'circleci/openjdk:8-jdk-stretch'
+    default: '8-jdk-stretch'
 
 jobs:
   build:
     docker:
-      - image: << pipeline.parameters.image-test >>
+      - image: 'circleci/openjdk:<< pipeline.parameters.image-test >>'
     steps:
-      - run: |
-          curl -sSL https://sdk.cloud.google.com > /tmp/gcl && bash /tmp/gcl --install-dir=~/gcloud --disable-prompts;
-          ~/gcloud/google-cloud-sdk/bin/gcloud components install app-engine-java
-      - run: ~/gcloud/google-cloud-sdk/bin/gcloud --help
-
+      - run: echo "hello world"
