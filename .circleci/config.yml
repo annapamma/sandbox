@@ -3,9 +3,16 @@ version: 2.1
 orbs:
   gcp-cli: circleci/gcp-cli@1.0.0
 
+jobs:
+  test:
+    docker:
+      - image: circleci/node:latest
+    steps:
+      - run: echo 'hello world'
+
 workflows:
   install_and_configure_cli:
     jobs:
       - gcp-cli/install_and_initialize_cli:
           executor: gcp-cli/default
-      - run: gcloud version
+      - test
