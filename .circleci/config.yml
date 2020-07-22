@@ -10,4 +10,7 @@ jobs:
     docker:
       - image: 'circleci/openjdk:<< pipeline.parameters.image-test >>'
     steps:
-      - run: echo "hello world"
+      - run: |
+          curl -s https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-283.0.0-linux-x86_64.tar.gz | tar xz
+          echo 'source ~/google-cloud-sdk/path.bash.inc' >> $BASH_ENV
+      - run: gcloud version
