@@ -1,23 +1,11 @@
 version: 2.1
 
-parameters:
-  image-test:
-    type: string
-    default: '8-jdk-stretch'
+orbs:
+  gcp-cli: circleci/gcp-cli@1.0.0
 
-jobs:
-  build:
-    docker:
-      - image: 'circleci/openjdk:<< pipeline.parameters.image-test >>'
-    steps:
-      - run:
-          name: Creating Dummy Artifacts
-          command: |
-            echo "my artifact file" > /tmp/artifact-1;
-            mkdir /tmp/artifacts;
-            echo "my artifact files in a dir" > /tmp/artifacts/artifact-2;
-      - store_artifacts:
-          path: /tmp/artifact-1
-          destination: artifact-file
-      - store_artifacts:
-          path: /tmp/artifacts
+workflows:
+  install_and_configure_cli:
+    jobs:
+      - gcp-cli/install_and_initialize_cli:
+          executor: gcp-cli/default
+      - run: gcloud version
