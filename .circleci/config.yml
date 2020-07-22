@@ -8,7 +8,5 @@ jobs:
       - run: |
           curl -sSL https://sdk.cloud.google.com > /tmp/gcl && bash /tmp/gcl --install-dir=~/gcloud --disable-prompts;
           ~/gcloud/google-cloud-sdk/bin/gcloud components install app-engine-java
-          echo "alias gcloud='~/gcloud/google-cloud-sdk/bin/gcloud'" >> $BASH_ENV
-      - run: alias
-      - run: gcloud --version
+      - run: ~/gcloud/google-cloud-sdk/bin/gcloud --version
 
