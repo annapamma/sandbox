@@ -8,6 +8,7 @@ jobs:
     docker:
       - image: circleci/node:9.6.1
     steps:
+      - checkout
       - run: |
          COMMIT_SUBJECT=`git log -1 --pretty=%s.`
          IS_MERGE=`echo ${COMMIT_SUBJECT} | sed 's/.*\[merge\([^]]*\)\].*/\1/g'`
