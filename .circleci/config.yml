@@ -4,10 +4,17 @@
 version: 2.1
 
 orbs:
-  buildalert: oss-tools/buildalert@0.0.3
+  buildalert: oss-tools/buildalert@0.0.4
 
 workflows:
-  monitor:
+  monitor-every-minute:
+    triggers:
+      - schedule:
+          cron: "* * * * *"
+          filters:
+            branches:
+              only:
+                - master
     jobs:
       - buildalert/monitor-builds:
           context: 'build_alert'
