@@ -7,14 +7,6 @@ orbs:
   buildalert: oss-tools/buildalert@0.0.4
 
 workflows:
-  monitor-every-minute:
-    triggers:
-      - schedule:
-          cron: "* * * * *"
-          filters:
-            branches:
-              only:
-                - test-monitor
     jobs:
       - buildalert/monitor-builds:
           context: 'build_alert'
@@ -27,13 +19,6 @@ workflows:
           alert-threshold-max-builds-per-user: 0
           alert-threshold-max-builds: 0
   monitor-siren-test:
-    triggers:
-      - schedule:
-          cron: "* * * * *"
-          filters:
-            branches:
-              only:
-                - test-monitor
     jobs:
       - buildalert/monitor-builds:
           context: 'build_alert'
