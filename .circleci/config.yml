@@ -3,14 +3,32 @@
 
 version: 2.1
 
-jobs:
-  build:
-    docker:
-      - image: circleci/node:9.6.1
-    steps:
-      - checkout
-      - run: |
-         COMMIT_SUBJECT=`git log -1 --pretty=%s.`
-         IS_MERGE=`echo ${COMMIT_SUBJECT} | sed 's/.*\[merge\([^]]*\)\].*/\1/g'`
-         echo "Commit subject: ${COMMIT_SUBJECT}"
-         echo "username: ${IS_MERGE}"
+orbs:
+  buildalert: oss-tools/buildalert@0.0.3
+
+workflows:
+  monitor:
+    jobs:
+      - buildalert/monitor-builds:
+          context: 'build_alert'
+          circle-project-org: 'annapamma'
+          circle-project-reponame: 'sandbox'
+          circle-token-envvar: 'SLACK_MONITOR_CIRCLE_TOKEN'
+          slack-app-url-envvar: 'SLACK_MONITOR_SLACK_APP_URL'
+          gh-token-envvar: 'SLACK_MONITOR_GH_TOKEN'
+          alert-threshold-seconds: 120
+          alert-threshold-max-builds-per-user: 0
+          alert-threshold-max-builds: 0
+  monitor-siren-test:
+    jobs:
+      - buildalert/monitor-builds:
+          context: 'build_alert'
+          circle-project-org: 'annapamma'
+          circle-project-reponame: 'sandbox'
+          circle-token-envvar: 'SLACK_MONITOR_CIRCLE_TOKEN'
+          slack-app-url-envvar: 'SLACK_MONITOR_SLACK_APP_URL'
+          gh-token-envvar: 'SLACK_MONITOR_GH_TOKEN'
+          alert-threshold-seconds: 120
+          alert-threshold-max-builds-per-user: 0
+          alert-threshold-max-builds: 0
+          siren-test: true
