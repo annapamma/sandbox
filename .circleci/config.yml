@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/openjdk:14.0.2-jdk-buster-node-browsers
+      - image: circleci/openjdk:8-jdk-stretch
     steps:
       - run:
           command: |
