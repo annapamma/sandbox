@@ -6,6 +6,13 @@
   "author": "annapamma <anna.pamela@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.19.2"
+    "axios": "^0.19.2",
+    "webpack": "^4.43.0"
+  },
+  "scripts": {
+    "build": "webpack -p && npm run build"
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.3.11"
   }
 }
