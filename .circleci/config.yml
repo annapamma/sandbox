@@ -12,4 +12,3 @@ jobs:
           pip install --upgrade setuptools
           pip install --upgrade pip
           pip install django-test-plus==1.4.0
-
