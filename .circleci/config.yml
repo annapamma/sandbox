@@ -1,11 +1,17 @@
-version: 2.1
-
 jobs:
-  build:
+  install-node-example:
     docker:
-      - image: circleci/android:api-29-node
+      - image: 'cimg/base:stable'
     steps:
-      - run: npm --version
-
-# 30 node: 6.14.6
-# 29 node:
+      - checkout
+      - node/install:
+          install-yarn: true
+          node-version: latest
+      - run: node --version
+orbs:
+  node: circleci/node@x.y
+version: 2.1
+workflows:
+  test_my_app:
+    jobs:
+      - install-node-example
