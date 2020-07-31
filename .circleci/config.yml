@@ -3,6 +3,9 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/android:api-30-node
+      - image: circleci/android:api-29-node
     steps:
       - run: npm --version
+
+# 30 node: 6.14.6
+# 29 node:
