@@ -3,12 +3,6 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/python:3.7.7
+      - image: circleci/php:7.3.0-cli-stretch-node
     steps:
-      - checkout
-      - run: |
-          python3 -m venv venv
-          . venv/bin/activate
-          pip install --upgrade setuptools && pip install wheel
-          pip install --upgrade pip
-          pip install django-test-plus==1.4.0
+      - run: echo 'hello world'
