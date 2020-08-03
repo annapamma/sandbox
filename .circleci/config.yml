@@ -1,17 +1,9 @@
-jobs:
-  install-node-example:
-    docker:
-      - image: 'cimg/base:stable'
-    steps:
-      - checkout
-      - node/install:
-          install-yarn: true
-          node-version: latest
-      - run: node --version
-orbs:
-  node: circleci/node@x.y
 version: 2.1
-workflows:
-  test_my_app:
-    jobs:
-      - install-node-example
+
+jobs:
+  build:
+    docker:
+      - image: 'circleci/python:3.8'
+    steps:
+      - run: sudo pip3 install speedtest-cli
+      - run: speedtest
