@@ -9,11 +9,13 @@ jobs:
           name: Evaluate Results
           command: |
             echo 'test'
-            echo $?
-            if [ $? == 0 ]
-            then
-              echo '-- THE FOLLOWING TESTS FAILED: --'
-              exit 1
-            else
-              echo '-- ALL TESTS PASSED! --'
-            fi
+      - run:
+          name: Echo for failed tests
+          command: |
+            echo '-- THE FOLLOWING TESTS FAILED: --'
+          when: on_success
+      - run:
+          name: Echo for passed tests
+          command: |
+            echo '-- THE FOLLOWING TESTS PASSED: --'
+          when: on_fail
