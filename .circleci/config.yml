@@ -5,17 +5,4 @@ jobs:
     docker:
       - image: circleci/node:latest
     steps:
-      - run:
-          name: Evaluate Results
-          command: |
-            exit 1
-      - run:
-          name: Echo for failed tests
-          command: |
-            echo '-- THE FOLLOWING TESTS FAILED: --'
-          when: on_success
-      - run:
-          name: Echo for passed tests
-          command: |
-            echo '-- THE FOLLOWING TESTS PASSED: --'
-          when: on_fail
+      - run: curl -sL https://deb.nodesource.com/setup_10.x | bash - && apt-get install -y nodejs build-essential
