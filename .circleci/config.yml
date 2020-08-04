@@ -8,7 +8,7 @@ jobs:
       - run:
           name: Evaluate Results
           command: |
-            echo 'test'
+            exit 1
       - run:
           name: Echo for failed tests
           command: |
