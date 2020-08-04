@@ -8,7 +8,9 @@ jobs:
       - run:
           name: Evaluate Results
           command: |
-            if [ 0 == 0 ]
+            echo 'test'
+            echo $?
+            if [ $? == 0 ]
             then
               echo '-- THE FOLLOWING TESTS FAILED: --'
               exit 1
