@@ -8,7 +8,6 @@ jobs:
       - run:
           name: Evaluate Results
           command: |
-            grep -q 'failure' /tmp/test-results/test-output
             if [ $? == 0 ]
             then
               echo '-- THE FOLLOWING TESTS FAILED: --'
