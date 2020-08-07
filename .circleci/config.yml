@@ -6,4 +6,4 @@ jobs:
       - image: circleci/node:latest
     steps:
       - run: mkdir -p build/{assets,bin}
-      - run: ls
+      - run: ls build
