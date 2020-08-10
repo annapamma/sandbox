@@ -9,6 +9,7 @@ jobs:
           (exit 8)
           RESULT=$?
           echo ${RESULT}
+          echo "test"
 
 workflows:
   workflow-should-only-trigger-with-api:
