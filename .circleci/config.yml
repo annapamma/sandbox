@@ -6,7 +6,7 @@ jobs:
       - image: circleci/node:10.8
     steps:
       - run: |
-          (exit 8 | echo $?)
+          (exit 8 | export RESULT=$?)
           echo ${RESULT}
           echo "test"
 
