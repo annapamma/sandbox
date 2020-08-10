@@ -6,10 +6,7 @@ jobs:
       - image: circleci/node:10.8
     steps:
       - run: |
-          output=$(exit 8)
-          echo "1"
-          status=$?
-          echo "hi"
+          output=$(exit 8; echo 'test')
 
 workflows:
   workflow-should-only-trigger-with-api:
