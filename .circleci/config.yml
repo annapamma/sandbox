@@ -6,7 +6,8 @@ jobs:
       - image: circleci/node:10.8
     steps:
       - run: |
-          RESULT=`(exit 8); $?`
+          (exit 8)
+          RESULT=$?
           echo ${RESULT}
 
 workflows:
