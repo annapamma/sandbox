@@ -7,6 +7,7 @@ jobs:
     steps:
       - run: |
           output=$(exit 8)
+          echo "1"
           status=$?
           echo "hi"
 
