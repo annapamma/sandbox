@@ -5,10 +5,9 @@ jobs:
     docker:
       - image: circleci/node:10.8
     steps:
-      - run: |
-          output=$(exit 8; echo 'test')
+      - run: echo "hi"
 
 workflows:
-  workflow-should-only-trigger-with-api:
+  example-workflow:
     jobs:
       - build
