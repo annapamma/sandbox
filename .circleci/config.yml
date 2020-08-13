@@ -21,4 +21,7 @@ workflows:
   example-workflow:
     jobs:
       - build
+      - deploy:
+          requires:
+            - build
 
