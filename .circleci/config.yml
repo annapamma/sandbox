@@ -4,24 +4,17 @@ jobs:
   build:
     docker:
       - image: circleci/node:10.8
+
     steps:
-      - run: mkdir -p test/testa && echo "bar" > test/testa/foo.txt
-      - persist_to_workspace:
-          root: test
-          paths:
-            - testa
-  deploy:
-    docker:
-      - image: circleci/node:10.8
-    steps:
-      - attach_workspace:
-          at: .
+      - run: echo 'test'
+      - run: ip -4 -o address
+      - setup_remote_docker
+      - run: |
+          ssh remote-docker
+          echo "this echo command will be executed in the remote Docker environment rather than the initial job container itself"
+          ip -4 -o address
 
 workflows:
   example-workflow:
     jobs:
       - build
-      - deploy:
-          requires:
-            - build
-
