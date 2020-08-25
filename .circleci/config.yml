@@ -24,7 +24,7 @@ workflows:
           filters:
             branches:
               ignore:
-                - branch-to-ignore
+                - master
       - next-job-1:
           requires:
             - checking-branch-job
