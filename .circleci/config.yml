@@ -1,33 +1,19 @@
 version: 2.1
 
+parameters:
+  build:
+    type: boolean
+    default: false
+
 jobs:
-  checking-branch-job:
+  my-test-job:
     docker:
       - image: circleci/node:10.8
     steps:
-      - run: echo "hello world"
-  next-job-1:
-    docker:
-      - image: circleci/node:10.8
-    steps:
-      - run: echo "1"
-  next-job-2:
-    docker:
-      - image: circleci/node:10.8
-    steps:
-      - run: echo "2"
+      - run: echo "pretend these are tests"
 
 workflows:
-  build:
+  tests:
+    when: << pipeline.parameters.build >>
     jobs:
-      - checking-branch-job:
-          filters:
-            branches:
-              ignore:
-                - branch-to-ignore
-      - next-job-1:
-          requires:
-            - checking-branch-job
-      - next-job-2:
-          requires:
-            - checking-branch-job
+      - my-test-job
