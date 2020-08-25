@@ -1,15 +1,33 @@
 version: 2.1
 
 jobs:
-  build:
+  checking-branch-job:
     docker:
       - image: circleci/node:10.8
-
     steps:
-      - run: echo "hello world" > test.txt
-      - run: checksum test.txt
+      - run: echo "hello world"
+  next-job-1:
+    docker:
+      - image: circleci/node:10.8
+    steps:
+      - run: echo "1"
+  next-job-2:
+    docker:
+      - image: circleci/node:10.8
+    steps:
+      - run: echo "2"
 
 workflows:
-  example-workflow:
+  build:
     jobs:
-      - build
+      - checking-branch-job:
+          filters:
+            branches:
+              ignore:
+                - branch-to-ignore
+      - next-job-1:
+          requires:
+            - checking-branch-job
+      - next-job-2:
+          requires:
+            - checking-branch-job
