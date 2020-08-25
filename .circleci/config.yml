@@ -1,20 +1,33 @@
 version: 2.1
 
-# Set parameter here
-parameters:
-  triggered_from_api:
-    type: boolean
-    default: false
-
 jobs:
-  build:
+  checking-branch-job:
     docker:
       - image: circleci/node:10.8
     steps:
-      - run: echo 'hello'
+      - run: echo "hello world"
+  next-job-1:
+    docker:
+      - image: circleci/node:10.8
+    steps:
+      - run: echo "1"
+  next-job-2:
+    docker:
+      - image: circleci/node:10.8
+    steps:
+      - run: echo "2"
 
 workflows:
-  workflow-should-only-trigger-with-api: # this will only trigger when triggered_from_api = true
-    when: << pipeline.parameters.triggered_from_api >>
+  build:
     jobs:
-      - build
+      - checking-branch-job:
+          filters:
+            branches:
+              ignore:
+                - branch-to-ignore
+      - next-job-1:
+          requires:
+            - checking-branch-job
+      - next-job-2:
+          requires:
+            - checking-branch-job
