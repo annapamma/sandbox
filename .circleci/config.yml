@@ -14,6 +14,5 @@ jobs:
 
 workflows:
   tests:
-    when: << pipeline.parameters.build >>
     jobs:
       - my-test-job
