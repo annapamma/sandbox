@@ -6,6 +6,7 @@ jobs:
       - image: circleci/node:10.8
     steps:
       - run: |
+          mkdir ~/.ssh
           cat \<<EOT >> ~/.ssh/config
           UseRoaming no
           Host jumphost-base*.prod.circleci.com
