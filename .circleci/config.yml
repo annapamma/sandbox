@@ -4,35 +4,14 @@ jobs:
   my-test-job:
     machine: true
     steps:
-      - run:
-          name: install java 13
-          command: |
-            sudo apt-get install -y --no-install-recommends ca-certificates-java \
-            && sudo mkdir -p /opt/jvm/openjdk-13 \
-            && curl -LSso /var/tmp/openjdk-13.0.2_linux-x64_bin.tar.gz https://download.java.net/java/GA/jdk13.0.2/d4173c853231432d94f001e99d882ca7/8/GPL/openjdk-13.0.2_linux-x64_bin.tar.gz \
-            && echo "acc7a6aabced44e62ec3b83e3b5959df2b1aa6b3d610d58ee45f0c21a7821a71 /var/tmp/openjdk-13.0.2_linux-x64_bin.tar.gz" | sha256sum -c - \
-            && sudo tar xzvf /var/tmp/openjdk-13.0.2_linux-x64_bin.tar.gz -C /opt/jvm/openjdk-13 --strip-components=1 \
-            && echo 'export PATH=/opt/jvm/openjdk-13/bin:$PATH' >> $BASH_ENV
-      - run: echo $PATH
-      - run: java -version
-      - run: mvn -v
       - run: |
-          sudo  apt remove curl \
-          && sudo apt purge curl \
-          && sudo apt-get update \
-          && sudo apt-get install -y libssl-dev autoconf libtool make \
-          && cd /usr/local/src \
-          && sudo rm -rf curl* \
-          && sudo wget https://curl.haxx.se/download/curl-7.70.0.zip \
-          && sudo unzip curl-7.70.0.zip \
-          && cd curl-7.70.0 \
-          && sudo ./buildconf \
-          && sudo autoreconf --install \
-          && sudo ./configure --with-ssl \
-          && sudo make \
-          && sudo make install \
-          && sudo cp /usr/local/bin/curl /usr/bin/curl \
-          && cat ./config.sub
+          echo ${CIRCLE_BRANCH}
+          circleci step halt
+      - run: |
+          COMMIT_SUBJECT=`git log -1 --pretty=%s.`
+          IGNORE_BRANCH=`echo ${COMMIT_SUBJECT} | sed 's/.*\[ignore-branch:\([^]]*\)\].*/\1/g'`
+          echo "Commit subject: ${COMMIT_SUBJECT}"
+          echo "username: ${IGNORE_BRANCH}"
 workflows:
   tests:
     jobs:
