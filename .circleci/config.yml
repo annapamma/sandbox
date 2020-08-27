@@ -11,7 +11,7 @@ jobs:
           echo "Commit subject: ${COMMIT_SUBJECT}"
           echo "ignore-branch: ${IGNORE_BRANCH}"
       - run: |
-          if [ ${CIRCLE_BRANCH} == 'test-only-pr' ]; then
+          if [ "$CIRCLE_BRANCH" == 'test-only-pr' ]; then
             circleci step halt
           fi
           echo "this runs if the halt did not work"
