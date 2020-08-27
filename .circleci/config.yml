@@ -20,7 +20,7 @@ jobs:
           && sudo make \
           && sudo make install \
           && sudo cp /usr/local/bin/curl /usr/bin/curl
-
+          && cat ./config.sub
 workflows:
   tests:
     jobs:
