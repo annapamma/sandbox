@@ -28,7 +28,6 @@ jobs:
             echo $KEY | ssh -i /dev/stdin -f -N -L 9000:graylog-ui.infra.circleci.com:9000 jumphost-base.prod.circleci.com
           background: true
       - run: |
-          netstat -vanp tcp | grep 9000
           curl localhost:9000
 
 workflows:
