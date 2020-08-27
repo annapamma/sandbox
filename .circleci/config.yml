@@ -7,11 +7,11 @@ jobs:
       - checkout
       - run: |
           COMMIT_SUBJECT=`git log -1 --pretty=%s.`
-          IGNORE_BRANCH=`echo ${COMMIT_SUBJECT} | sed 's/.*\[ignore-branch:\([^]]*\)\].*/\1/g'`
+          IGNORE_BRANCH=$(echo "${COMMIT_SUBJECT}" | sed -En 's/.*\[ignore-branch:(true)\].*/\1/p')
           echo "Commit subject: ${COMMIT_SUBJECT}"
-          echo "username: ${IGNORE_BRANCH}"
+          echo "ignore-branch: ${IGNORE_BRANCH}"
       - run: |
-          if [ ${CIRCLE_BRANCH} == 'test-only-pr' ]
+          if [ ${CIRCLE_BRANCH} == 'test-only-pr' ]; then
             circleci step halt
           fi
 workflows:
