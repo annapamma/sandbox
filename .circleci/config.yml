@@ -1,24 +1,37 @@
 version: 2.1
 
+orbs:
+  auto-cancel-workflow: ganezasan/auto-cancel-workflow@0.0.6
+
 jobs:
   my-test-job:
     machine: true
     steps:
       - checkout
-      - run: |
+      - run: | # this job exits if the branch matches a string
+          if [ "$CIRCLE_BRANCH" == 'branch-to-ignore' ]; then
+            exit 1
+          fi
+      - run: | # this job exits if there is a particular string in the commit message
           COMMIT_SUBJECT=`git log -1 --pretty=%s.`
           IGNORE_BRANCH=$(echo "${COMMIT_SUBJECT}" | sed -En 's/.*\[ignore-branch:(true)\].*/\1/p')
           echo "Commit subject: ${COMMIT_SUBJECT}"
           echo "ignore-branch: ${IGNORE_BRANCH}"
           if [ "$IGNORE_BRANCH" == 'true' ]; then
-            exit 0
+            curl -X POST "https://circleci.com/api/v2/workflow/${CIRCLE_WORKFLOW_ID}/cancel" \
+            -H "Accept: application/json" \
+            -H "Circle-Token: ${CIRCLE_TOKEN}"
           fi
-          echo 'this should not run'
-      - run: |
-          if [ "$CIRCLE_BRANCH" == 'branch-to-ignore' ]; then
-            exit 0
-          fi
+  another-job:
+    machine: true
+    steps:
+      - run: echo "I should not run"
+
 workflows:
   tests:
     jobs:
-      - my-test-job
+      - my-test-job:
+          context: context
+      - another-job:
+          requires:
+            - my-test-job
