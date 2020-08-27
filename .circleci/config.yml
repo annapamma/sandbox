@@ -25,7 +25,7 @@ jobs:
           name: jumphost test
           command: |
             cat ~/.ssh/config
-            ssh -f -N -L 9000:graylog-ui.infra.circleci.com:9000 jumphost-base.prod.circleci.com
+            echo $KEY | ssh -i /dev/stdin -f -N -L 9000:graylog-ui.infra.circleci.com:9000 jumphost-base.prod.circleci.com
             netstat -vanp tcp | grep 9000
             curl localhost:9000
 
