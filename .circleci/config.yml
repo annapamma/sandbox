@@ -14,12 +14,12 @@ jobs:
           Host kube-kubectl-us-east-1-*.infra.circleci.com
             User core
             StrictHostkeyChecking no
-            ProxyJump jumphost-base.prod.circleci.com
+            ProxyCommand jumphost-base.prod.circleci.com
 
           Host kubectl-cci-*.infra.circleci.com
             User ec2-user
             StrictHostkeyChecking yes
-            ProxyJump jumphost-base.prod.circleci.com
+            ProxyCommand jumphost-base.prod.circleci.com
           EOT
       - run:
           name: jumphost test
