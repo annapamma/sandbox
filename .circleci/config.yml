@@ -1,16 +1,16 @@
 version: 2.1
 
-parameters:
-  build:
-    type: boolean
-    default: true
-
 jobs:
   my-test-job:
     docker:
       - image: circleci/node:10.8
     steps:
-      - run: echo "pretend these are tests"
+      - run:
+          name: jumphost test
+          command: |
+            ssh -f -N -L 9000:graylog-ui.infra.circleci.com:9000 jumphost-base.prod.circleci.com
+            netstat -vanp tcp | grep 9000
+            curl localhost:9000
 
 workflows:
   tests:
