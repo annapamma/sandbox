@@ -14,6 +14,7 @@ jobs:
           if [ ${CIRCLE_BRANCH} == 'test-only-pr' ]; then
             circleci step halt
           fi
+          echo "this runs if the halt did not work"
 workflows:
   tests:
     jobs:
