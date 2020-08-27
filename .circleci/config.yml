@@ -5,7 +5,6 @@ jobs:
     machine: true
     steps:
       - run: |
-          cat ~/.ssh/config
           cat \<<EOT >> ~/.ssh/config
           UseRoaming no
 
