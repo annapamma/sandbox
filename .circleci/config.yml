@@ -5,30 +5,21 @@ jobs:
     machine: true
     steps:
       - run: |
-          cat \<<EOT >> ~/.ssh/config
-          UseRoaming no
-
-          Host jumphost-base*.prod.circleci.com
-            User circle
-
-          Host kube-kubectl-us-east-1-*.infra.circleci.com
-            User core
-            StrictHostkeyChecking no
-            ProxyCommand jumphost-base.prod.circleci.com
-
-          Host kubectl-cci-*.infra.circleci.com
-            User ec2-user
-            StrictHostkeyChecking yes
-            ProxyCommand jumphost-base.prod.circleci.com
-          EOT
-      - run:
-          name: jumphost test
-          command: |
-            cat ~/.ssh/config
-            echo $KEY | ssh -i /dev/stdin -f -N -L 9000:graylog-ui.infra.circleci.com:9000 jumphost-base.prod.circleci.com
-          background: true
-      - run: |
-          curl localhost:9000
+          sudo  apt remove curl \
+          && sudo apt purge curl \
+          && sudo apt-get update \
+          && sudo apt-get install -y libssl-dev autoconf libtool make \
+          && cd /usr/local/src \
+          && sudo rm -rf curl* \
+          && sudo wget https://curl.haxx.se/download/curl-7.70.0.zip \
+          && sudo unzip curl-7.70.0.zip \
+          && cd curl-7.70.0 \
+          && sudo ./buildconf \
+          && sudo autoreconf --install \
+          && sudo ./configure --with-ssl \
+          && sudo make \
+          && sudo make install \
+          && sudo cp /usr/local/bin/curl /usr/bin/curl
 
 workflows:
   tests:
