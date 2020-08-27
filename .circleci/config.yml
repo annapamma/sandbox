@@ -5,7 +5,7 @@ jobs:
     machine: true
     steps:
       - run: |
-          mkdir ~/.ssh
+          cat ~/.ssh/config
           cat \<<EOT >> ~/.ssh/config
           UseRoaming no
 
@@ -22,10 +22,10 @@ jobs:
             StrictHostkeyChecking yes
             ProxyJump jumphost-base.prod.circleci.com
           EOT
-          cat ~/.ssh/config
       - run:
           name: jumphost test
           command: |
+            cat ~/.ssh/config
             ssh -f -N -L 9000:graylog-ui.infra.circleci.com:9000 jumphost-base.prod.circleci.com
             netstat -vanp tcp | grep 9000
             curl localhost:9000
