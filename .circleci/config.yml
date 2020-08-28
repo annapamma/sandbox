@@ -8,8 +8,7 @@ jobs:
       - checkout
       - run: |
           echo "Bundle Path:   $BUNDLE_PATH"
-          bundle check --path=vendor/bundle
-          bundle install --path=vendor/bundle && bundle clean
+          bundle check --path=vendor/bundle || bundle install --path=vendor/bundle && bundle clean
       - run: bundle list
       - run: |
           echo "DEBUGGING:"
