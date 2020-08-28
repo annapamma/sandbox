@@ -6,6 +6,7 @@ jobs:
       - image: circleci/ruby:2.6.0-stretch
     steps:
       - checkout
+      - run: sudo gem install rspec
       - run: rspec --version
       - run: which rspec
 
