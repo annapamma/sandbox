@@ -8,13 +8,16 @@ jobs:
       - checkout
       - run: |
           echo "Bundle Path:   $BUNDLE_PATH"
-          bundle check --path=vendor/bundle || bundle install --path=vendor/bundle && bundle clean
+          bundle check --path=vendor/bundle
+          bundle install --path=vendor/bundle && bundle clean
+      - run: bundle list
       - run: |
           echo "DEBUGGING:"
           ls -al
           echo "PATH:  $PATH"
           echo "Bundle Path:  $BUNDLE_PATH"
           which bundle
+          ls vendor/bundle
           # rm -rf vendor/bundle
           echo "Running tests"
           bundle exec rspec
