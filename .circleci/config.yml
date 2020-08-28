@@ -6,9 +6,18 @@ jobs:
       - image: circleci/ruby:2.6.0-stretch
     steps:
       - checkout
-      - run: sudo gem install rspec
-      - run: rspec --version
-      - run: which rspec
+      - run: |
+          echo "Bundle Path:   $BUNDLE_PATH"
+          bundle check --path=vendor/bundle || bundle install --path=vendor/bundle && bundle clean
+      - run: |
+          echo "DEBUGGING:"
+          ls -al
+          echo "PATH:  $PATH"
+          echo "Bundle Path:  $BUNDLE_PATH"
+          which bundle
+          # rm -rf vendor/bundle
+          echo "Running tests"
+          bundle exec rspec
 
 
 workflows:
