@@ -13,4 +13,5 @@ jobs:
 workflows:
   tests:
     jobs:
-      - my-test-job
+      - my-test-job:
+          context: context
