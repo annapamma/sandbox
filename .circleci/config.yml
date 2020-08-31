@@ -3,12 +3,11 @@ version: 2.1
 jobs:
   my-test-job:
     docker:
-      - image: circleci/openjdk:8-jdk
+      - image: circleci/php:7.2-apache-stretch-node-browsers-legacy
     steps:
       - checkout
-      - run: sbt --version
-      - run: echo "somesecret=${HELLO}" > test_file
-      - run: cat test_file
+      - run: sudo apt-get install libxss1
+      - run: sudo aptitude search libXss
 
 workflows:
   tests:
