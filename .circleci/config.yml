@@ -6,9 +6,10 @@ jobs:
       - image: circleci/ruby:2.6.0-stretch
     steps:
       - checkout
-      - run:
-          command: cat $BASH_ENV
-
+      - run: |
+          echo "export FOO='BAR'" >> $BASH_ENV
+          cat $BASH_ENV
+      - run: echo $FOO
 
 workflows:
   tests:
