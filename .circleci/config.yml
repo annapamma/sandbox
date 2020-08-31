@@ -3,12 +3,12 @@ version: 2.1
 jobs:
   my-test-job:
     docker:
-      - image: circleci/ruby:2.6.0-stretch
+      - image: circleci/openjdk:8-jdk
     steps:
       - checkout
       - run: |
-          echo "export FOO='BAR'" >> $BASH_ENV
-          cat $BASH_ENV
+          sudo apt-get update
+          sudo apt-get install sbt
       - run: echo $FOO
 
 workflows:
