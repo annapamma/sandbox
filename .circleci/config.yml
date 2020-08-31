@@ -7,25 +7,7 @@ jobs:
     steps:
       - checkout
       - run:
-          working_directory: test-working-dir
-          command: |
-            echo "Bundle Path:   $BUNDLE_PATH"
-            bundle check --path=vendor/bundle || bundle install --path=vendor/bundle && bundle clean
-      - run:
-          working_directory: test-working-dir
-          command: bundle list
-      - run:
-          working_directory: test-working-dir
-          command: |
-            echo "DEBUGGING:"
-            ls -al
-            echo "PATH:  $PATH"
-            echo "Bundle Path:  $BUNDLE_PATH"
-            which bundle
-            ls vendor/bundle
-            # rm -rf vendor/bundle
-            echo "Running tests"
-            bundle exec rspec
+          command: cat $BASH_ENV
 
 
 workflows:
