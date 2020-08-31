@@ -7,7 +7,8 @@ jobs:
     steps:
       - checkout
       - run: sbt --version
-      - run: echo $PATH
+      - run: echo "somesecret=${HELLO}" > test_file
+      - run: cat test_file
 
 workflows:
   tests:
