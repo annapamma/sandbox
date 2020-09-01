@@ -19,7 +19,7 @@ jobs:
       - checkout
       - run: sbt --version
       - run: cat /home/circleci/.sbt/boot/update.log
-      - run: mkdir -p /home/circleci/.sbt/boot && echo "test" > /home/circleci/.sbt/boot/update.log
+#      - run: mkdir -p /home/circleci/.sbt/boot && echo "test" > /home/circleci/.sbt/boot/update.log
       - store_artifacts:
           path: /home/circleci/.sbt/boot
 
