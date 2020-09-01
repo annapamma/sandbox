@@ -3,14 +3,36 @@ version: 2.1
 jobs:
   my-test-job:
     docker:
-      - image: circleci/php:7.2-apache-stretch-node-browsers-legacy
+      - image: circleci/openjdk:8-jdk
+      environment:
+        SBT_VERSION: 1.0.4
+      steps:
+        - checkout
+        - run: sbt --version
+        - run: echo $PATH
+  my-test-job-with-manual-install:
+    docker:
+      - image: circleci/openjdk:8-jdk
+    environment:
+      SBT_VERSION: 1.0.4
     steps:
       - checkout
-      - run: sudo apt-get install libxss1
-      - run: sudo aptitude search libXss
+      - run:
+          name: Get sbt binary
+          command: |
+            apt update && apt install -y curl
+            curl -L -o sbt-$SBT_VERSION.deb https://dl.bintray.com/sbt/debian/sbt-$SBT_VERSION.deb
+            dpkg -i sbt-$SBT_VERSION.deb
+            rm sbt-$SBT_VERSION.deb
+            apt-get update
+            apt-get install -y python-pip git
+            pip install awscli
+            apt-get clean && apt-get autoclean
+      - run: sbt --version
+      - run: echo $PATH
 
 workflows:
   tests:
     jobs:
-      - my-test-job:
-          context: context
+      - my-test-job
+      - my-test-job-with-manual-install
