@@ -1,30 +1,39 @@
-version: 2.1
-
+version: 2
 jobs:
-  my-test-job:
+  build:
+    working_directory: ~/samplescala
     docker:
-      - image: circleci/openjdk:8-jdk
+      - image: openjdk:8
     environment:
       SBT_VERSION: 1.0.4
     steps:
+      - run: echo 'export ARTIFACT_BUILD=$CIRCLE_PROJECT_REPONAME-$CIRCLE_BUILD_NUM.zip' >> $BASH_ENV
+      - run:
+          name: Get sbt binary
+          command: sudo apt update && sudo apt install -y curl
+      - run: curl -L -o sbt-$SBT_VERSION.deb https://dl.bintray.com/sbt/debian/sbt-$SBT_VERSION.deb
+      - run: dpkg -i sbt-$SBT_VERSION.deb
+      - run: rm sbt-$SBT_VERSION.deb
+      - run: apt-get update
+      - run: apt-get install -y python-pip git
+      - run: pip install awscli
+      - run: apt-get clean && apt-get autoclean
       - checkout
-      - run: sbt --version
-      - run: echo $PATH
-  my-test-job-with-manual-install:
-    docker:
-      - image: circleci/openjdk:8-jdk
-    environment:
-      SBT_VERSION: 1.0.4
-    steps:
-      - checkout
-      - run: sbt --version
-      - run: cat /home/circleci/.sbt/boot/update.log
-#      - run: mkdir -p /home/circleci/.sbt/boot && echo "test" > /home/circleci/.sbt/boot/update.log
+      - restore_cache:
+          key: sbt-cache
+      - run:
+          name: Compile samplescala dist package
+          command: cat /dev/null | sbt clean update dist
       - store_artifacts:
-          path: /home/circleci/.sbt/boot
-
-workflows:
-  tests:
-    jobs:
-      - my-test-job
-      - my-test-job-with-manual-install
+          path: target/universal/samplescala.zip
+          destination: samplescala
+      - save_cache:
+          key: sbt-cache
+          paths:
+            - "~/.ivy2/cache"
+            - "~/.sbt"
+            - "~/.m2"
+      - deploy:
+          command: |
+              mv target/universal/samplescala.zip $CIRCLE_ARTIFACTS/$ARTIFACT_BUILD
+              aws s3 cp $CIRCLE_ARTIFACTS/$ARTIFACT_BUILD s3://samplescala.blogs/builds/ --metadata {\"git_sha1\":\"$CIRCLE_SHA1\"}
