@@ -4,12 +4,12 @@ jobs:
   my-test-job:
     docker:
       - image: circleci/openjdk:8-jdk
-      environment:
-        SBT_VERSION: 1.0.4
-      steps:
-        - checkout
-        - run: sbt --version
-        - run: echo $PATH
+    environment:
+      SBT_VERSION: 1.0.4
+    steps:
+      - checkout
+      - run: sbt --version
+      - run: echo $PATH
   my-test-job-with-manual-install:
     docker:
       - image: circleci/openjdk:8-jdk
