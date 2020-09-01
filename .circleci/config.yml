@@ -19,14 +19,14 @@ jobs:
       - checkout
       - run:
           name: Get sbt binary
-          command: sudo apt update && apt install -y curl
+          command: sudo apt update && sudo apt install -y curl
       - run: sudo curl -L -o sbt-$SBT_VERSION.deb https://dl.bintray.com/sbt/debian/sbt-$SBT_VERSION.deb
       - run: sudo dpkg -i sbt-$SBT_VERSION.deb
       - run: sudo rm sbt-$SBT_VERSION.deb
       - run: sudo apt-get update
       - run: sudo apt-get install -y python-pip git
       - run: sudo pip install awscli
-      - run: sudo apt-get clean && apt-get autoclean
+      - run: sudo apt-get clean && sudo apt-get autoclean
       - run: sbt --version
       - run: echo $PATH
 
