@@ -13,7 +13,7 @@ jobs:
               echo "======"
             done
           background: true
-      - run: sudo apt-get install tcpflow
+      - run: sudo apt-get update && sudo apt-get install tcpflow
       - run:
           command: |
             cd ~ && \
