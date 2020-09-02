@@ -13,6 +13,7 @@ jobs:
               echo "======"
             done
           background: true
+      - run: sudo apt-get install tcpflow
       - run:
           command: |
             cd ~ && \
@@ -25,8 +26,7 @@ jobs:
               --apikey \
               --interactive=false
       - run: ~/jfrog rt ping
-      - run: sudo tcpdump -i any -w /tmp/http.log
-      - run: sudo tcpdump -A -r /tmp/http.log | less
+      - run: sudo tcpflow -p -c port 80
 
 workflows:
   tests:
