@@ -26,7 +26,13 @@ jobs:
               --apikey \
               --interactive=false
       - run: ~/jfrog rt ping
-      - run: sudo tcpflow -p -c port 80
+      - run: |
+          sudo groupadd pcap
+          sudo usermod -a -G pcap $USER
+          sudo chgrp pcap /usr/sbin/tcpdump
+          sudo chmod 750 /usr/sbin/tcpdump
+          sudo setcap cap_net_raw,cap_net_admin=eip /usr/sbin/tcpdump
+          sudo tcpflow -p -c port 80
 
 workflows:
   tests:
