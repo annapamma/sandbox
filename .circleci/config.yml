@@ -25,6 +25,8 @@ jobs:
               --apikey \
               --interactive=false
       - run: ~/jfrog rt ping
+      - run: sudo tcpdump -i any -w /tmp/http.log
+      - run: sudo tcpdump -A -r /tmp/http.log | less
 
 workflows:
   tests:
