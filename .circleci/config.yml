@@ -26,8 +26,7 @@ jobs:
               --apikey \
               --interactive=false
       - run: ~/jfrog rt ping
-      - store_artifacts:
-          path: /home/circleci/.sbt/boot
+      - run: ~/jfrog rt dl stash-shared-sbt-releases/org/scala-sbt/sbt/1.3.13/sbt-1.3.13.jar ~/
 
 workflows:
   tests:
