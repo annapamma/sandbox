@@ -7,6 +7,14 @@ jobs:
     steps:
       - run:
           command: |
+            while true; do
+              sleep 1
+              netstat -nputw
+              echo "======"
+            done
+          background: true
+      - run:
+          command: |
             cd ~ && \
               curl -fL https://getcli.jfrog.io | sh
       - run:
@@ -17,8 +25,6 @@ jobs:
               --apikey \
               --interactive=false
       - run: ~/jfrog rt ping
-      - run: ~/jfrog rt dl stash-shared-sbt-releases/org/scala-sbt/sbt/1.3.13/sbt-1.3.13.jar ~/
-      - run: ls -al ~/org/scala-sbt/sbt/1.3.13/
 
 workflows:
   tests:
