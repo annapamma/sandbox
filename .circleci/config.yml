@@ -24,6 +24,7 @@ jobs:
           brew install aws-sam-cli
           sam --version
 
+
 workflows:
   tests:
     jobs:
