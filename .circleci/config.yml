@@ -9,14 +9,12 @@ jobs:
     steps:
       - run: |
           curl -fsSL "https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh" | bash
-          test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
-          test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-          test -r ~/.bash_profile && echo "eval \$($(brew --prefix)/bin/brew shellenv)" >> $BASH_ENV
-          echo "eval \$($(brew --prefix)/bin/brew shellenv)" >> $BASH_ENV
+          echo 'eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)' >> $BASH_ENV
+          eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
       - run: |
           brew tap aws/tap
-      - run: brew install aws-sam-cli
-      - run: sam --version
+          brew install aws-sam-cli
+          sam --version
 
 workflows:
   tests:
