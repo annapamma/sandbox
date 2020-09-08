@@ -1,15 +1,15 @@
 version: 2.1
 
 jobs:
-  artifactory_checkout_code:
-    docker:
-      - image: circleci/openjdk:8-jdk
+  test:
+    machine: true
     steps:
-      - run: echo $CIRCLE_WORKING_DIRECTORY/sbt-1.3.13.jar
-      - run: echo "$CIRCLE_WORKING_DIRECTORY/sbt-1.3.13.jar"
-      - run: echo "${CIRCLE_WORKING_DIRECTORY}/sbt-1.3.13.jar"
+      - run: |
+          brew tap aws/tap
+          brew install aws-sam-cli
+          sam --version
 
 workflows:
   tests:
     jobs:
-      - artifactory_checkout_code
+      - test
