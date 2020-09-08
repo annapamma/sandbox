@@ -1,8 +1,11 @@
 version: 2.1
 
+orbs:
+  sam: circleci/aws-sam-serverless@1.0.1
+
 jobs:
   test:
-    machine: true
+    executor: sam/default
     steps:
       - run: |
           brew tap aws/tap
