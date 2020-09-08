@@ -7,10 +7,18 @@ jobs:
   test:
     executor: sam/default
     steps:
-      - run: |
-          curl -fsSL "https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh" | bash
-          echo 'eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)' >> $BASH_ENV
-          eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+      - run:
+          name: Install Dependencies
+          command: |
+            sudo apt-get install build-essential python-dev curl file git python-setuptools ruby
+      - run:
+          name: Install Linuxbrew
+          command: |
+            yes | ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install)" || true
+            export PATH="$HOME/.linuxbrew/bin:$PATH"
+            brew tap aws/tap
+            brew install aws-sam-cli
+            sam --version
       - run: |
           brew tap aws/tap
           brew install aws-sam-cli
