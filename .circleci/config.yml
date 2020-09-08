@@ -1,33 +1,23 @@
 version: 2.1
 
 jobs:
-  checking-branch-job:
+  test:
     docker:
-      - image: circleci/node:10.8
+      - image: circleci/node:latest
     steps:
-      - run: echo "hello world"
-  next-job-1:
-    docker:
-      - image: circleci/node:10.8
-    steps:
-      - run: echo "1"
-  next-job-2:
-    docker:
-      - image: circleci/node:10.8
-    steps:
-      - run: echo "2"
+      - run: echo 'hello'
 
 workflows:
-  build:
-    jobs:
-      - checking-branch-job:
-          filters:
-            branches:
-              ignore:
-                - master
-      - next-job-1:
-          requires:
-            - checking-branch-job
-      - next-job-2:
-          requires:
-            - checking-branch-job
+    build_not_master:
+        when:
+            condition:
+                not:
+                    - equal: [ master, << pipeline.git.branch >> ]
+        jobs:
+            - test
+    build_master:
+        when:
+            condition:
+                equal: [ master, << pipeline.git.branch >> ]
+        jobs:
+            - test
