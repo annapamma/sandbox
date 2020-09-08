@@ -1,19 +1,23 @@
 version: 2.1
 
-parameters:
-  build:
-    type: boolean
-    default: true
-
 jobs:
-  my-test-job:
+  test:
     docker:
-      - image: circleci/node:10.8
+      - image: circleci/node:latest
     steps:
-      - run: echo "pretend these are tests"
+      - run: echo 'hello'
 
 workflows:
-  tests:
-    when: << pipeline.parameters.build >>
-    jobs:
-      - my-test-job
+    build_not_master:
+        when:
+            condition:
+                not:
+                  - equal: [ 'pr-a', << pipeline.git.branch >> ]
+        jobs:
+            - test
+    build_master:
+        when:
+            condition:
+                equal: [ 'pr-a', << pipeline.git.branch >> ]
+        jobs:
+            - test
