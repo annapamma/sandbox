@@ -10,7 +10,7 @@ jobs:
       - run:
           name: Install Dependencies
           command: |
-            sudo apt-get install build-essential python-dev curl file git python-setuptools ruby
+            sudo apt-get install build-essential python python-setuptools
       - run:
           name: Install Linuxbrew
           command: |
