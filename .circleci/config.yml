@@ -10,16 +10,9 @@ jobs:
       - run:
           name: Install Dependencies
           command: |
-            sudo apt-get update && sudo apt-get install build-essential curl file git python
-      - run:
-          name: Install Linuxbrew
-          command: |
-            curl -fsSL "https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh" | bash
-            /home/linuxbrew/.linuxbrew/bin/brew shellenv >> $BASH_ENV
+            sudo apt-get update && sudo apt-get install build-essential curl file git python3-pip
       - run: |
-          /home/linuxbrew/.linuxbrew/bin/brew --version
-          /home/linuxbrew/.linuxbrew/bin/brew tap aws/tap
-          /home/linuxbrew/.linuxbrew/bin/brew install aws-sam-cli
+          pip install aws-sam-cli
           sam --version
 
 
