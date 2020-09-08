@@ -20,7 +20,8 @@ jobs:
             brew tap aws/tap
             brew install aws-sam-cli
             ln -s /home/linuxbrew/.linuxbrew/Cellar/aws-sam-cli/1.1.0.reinstall /home/linuxbrew/.linuxbrew/Cellar/aws-sam-cli/1.1.0
-            ln -s ../Cellar/aws-sam-cli/1.1.0/bin/sam /home/linuxbrew/.linuxbrew/bin
+            echo export PATH="/home/linuxbrew/.linuxbrew/Cellar/aws-sam-cli/1.1.0/bin:${PATH}" >> $BASH_ENV
+            export PATH="/home/linuxbrew/.linuxbrew/Cellar/aws-sam-cli/1.1.0/bin:${PATH}"
             sam --version
           name: Install the AWS SAM CLI
 
