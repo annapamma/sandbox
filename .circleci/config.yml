@@ -8,6 +8,8 @@ jobs:
     executor: sam/default
     steps:
       - run: |
+          curl -fsSL "https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh" | bash
+          /home/linuxbrew/.linuxbrew/bin/brew shellenv >> $BASH_ENV
           brew tap aws/tap
           brew install aws-sam-cli
           sam --version
