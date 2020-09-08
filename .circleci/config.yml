@@ -12,7 +12,7 @@ workflows:
         when:
             condition:
                 not:
-                    - equal: [ master, << pipeline.git.branch >> ]
+                  - equal: [ master, << pipeline.git.branch >> ]
         jobs:
             - test
     build_master:
