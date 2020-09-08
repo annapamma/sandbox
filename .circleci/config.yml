@@ -15,7 +15,7 @@ jobs:
           name: Install Linuxbrew
           command: |
             sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
-            echo "eval \$($(brew --prefix)/bin/brew shellenv)" >> $BASH_ENV
+            echo 'sudo eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)' >> $BASH_ENV
             cat $BASH_ENV
       - run: |
           brew tap aws/tap
