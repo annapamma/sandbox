@@ -17,6 +17,7 @@ jobs:
             curl -fsSL "https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh" | bash
             /home/linuxbrew/.linuxbrew/bin/brew shellenv >> $BASH_ENV
       - run: |
+          brew --version
           brew tap aws/tap
           brew install aws-sam-cli
           sam --version
