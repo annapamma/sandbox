@@ -12,8 +12,8 @@ jobs:
           /home/linuxbrew/.linuxbrew/bin/brew shellenv >> $BASH_ENV
       - run: |
           brew tap aws/tap
-          brew install aws-sam-cli
-          sam --version
+      - run: brew install aws-sam-cli
+      - run: sam --version
 
 workflows:
   tests:
