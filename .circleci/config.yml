@@ -10,14 +10,16 @@ jobs:
 workflows:
     do_not_build:
       when:
-        and:
-          - not:
-              equal: [ 'pr-a', << pipeline.git.branch >> ]
+        condition:
+          and:
+            - not:
+                equal: [ master, << pipeline.git.branch >> ]
       jobs:
           - test
     build:
         when:
-          and:
-            - equal: [ pr-a, << pipeline.git.branch >> ]
+          condition:
+            and:
+              - equal: [ master, << pipeline.git.branch >> ]
         jobs:
             - test
