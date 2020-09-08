@@ -5,17 +5,17 @@ jobs:
     docker:
       - image: circleci/node:latest
     steps:
-      - run: echo 'hello'
+      - run: echo << pipeline.git.branch >>
 
 workflows:
-    build_not_master:
+    do_not_build:
         when:
             condition:
                 not:
                   - equal: [ 'pr-a', << pipeline.git.branch >> ]
         jobs:
             - test
-    build_master:
+    build:
         when:
             condition:
                 equal: [ 'pr-a', << pipeline.git.branch >> ]
