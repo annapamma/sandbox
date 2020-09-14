@@ -11,5 +11,4 @@ jobs:
 workflows:
     build:
         jobs:
-            - test:
-                context: { CIRCLE_PROJECT_USERNAME }
+            - test
