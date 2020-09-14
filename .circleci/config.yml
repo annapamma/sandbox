@@ -5,21 +5,11 @@ jobs:
     docker:
       - image: circleci/node:latest
     steps:
-      - run: echo << pipeline.git.branch >>
+      - run: echo ${CIRCLE_PROJECT_USERNAME}
+      - run: echo $foo
 
 workflows:
-    do_not_build:
-      when:
-        condition:
-          and:
-            - not:
-                equal: [ master, << pipeline.git.branch >> ]
-      jobs:
-          - test
     build:
-        when:
-          condition:
-            and:
-              - equal: [ master, << pipeline.git.branch >> ]
         jobs:
-            - test
+            - test:
+                context: { CIRCLE_PROJECT_USERNAME }
