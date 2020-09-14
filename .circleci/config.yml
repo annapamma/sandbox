@@ -8,16 +8,6 @@ jobs:
       - run: echo 'hello'
 
 workflows:
-    build_not_master:
-        when:
-            condition:
-                not:
-                  - equal: [ 'pa', << pipeline.git.branch >> ]
-        jobs:
-            - test
     build_master:
-        when:
-            condition:
-                equal: [ 'pa', << pipeline.git.branch >> ]
         jobs:
             - test
