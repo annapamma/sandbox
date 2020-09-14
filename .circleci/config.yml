@@ -5,7 +5,7 @@ jobs:
     docker:
       - image: circleci/node:latest
     steps:
-      - run: echo 'hello'
+      - run: echo 'hello2'
 
 workflows:
     build_master:
