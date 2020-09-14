@@ -7,6 +7,7 @@ jobs:
     steps:
       - run: echo ${CIRCLE_PROJECT_USERNAME}
       - run: echo $foo
+      - run: echo ${CIRCLE_BRANCH}
 
 workflows:
     build:
