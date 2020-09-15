@@ -11,6 +11,7 @@ jobs:
     <<: *windows_cpu
     steps:
       - checkout
+      - run: ls
       - run: echo 'hello'
 
 workflows:
