@@ -12,6 +12,7 @@ jobs:
     steps:
       - checkout
       - run: ls
+      - run: openssl version
       - run: echo 'hello'
 
 workflows:
