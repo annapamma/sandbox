@@ -19,13 +19,13 @@ jobs:
       - run: curl google.com
       - run: curl google.com
       - run: curl google.com
-       - run: curl google.com
-       - run: curl google.com
-       - run: curl google.com
-       - run: curl google.com
-       - run: curl google.com
-       - run: curl google.com
-       - run: curl google.com
+      - run: curl google.com
+      - run: curl google.com
+      - run: curl google.com
+      - run: curl google.com
+      - run: curl google.com
+      - run: curl google.com
+      - run: curl google.com
 
 workflows:
     build:
