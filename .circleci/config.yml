@@ -5,12 +5,17 @@ jobs:
     docker:
       - image: circleci/node:latest
     steps:
-      - setup_remote_docker
       - checkout
-      - run: ssh -G remote-docker | awk '/^hostname / { print $2 }'
-      - run: ls
-      - run: openssl version
-      - run: echo 'hello'
+      - run:
+          command: |
+            while true; do
+              sleep 1
+              netstat -nputw
+              echo "======"
+            done
+          background: true
+      - run: curl google.com
+
 
 workflows:
     build:
