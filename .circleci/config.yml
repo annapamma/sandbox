@@ -1,16 +1,13 @@
 version: 2.1
 
-windows-cpu: &windows_cpu
-  machine:
-    resource_class: windows.medium
-    image: windows-server-2019-vs2019:stable
-    shell: powershell.exe
-
 jobs:
   test:
-    <<: *windows_cpu
+    docker:
+      - image: circleci/node:latest
     steps:
+      - setup_remote_docker
       - checkout
+      - run: ssh -G remote-docker | awk '/^hostname / { print $2 }'
       - run: ls
       - run: openssl version
       - run: echo 'hello'
