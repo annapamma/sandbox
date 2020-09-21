@@ -9,7 +9,6 @@ jobs:
       - run:
           command: |
             while true; do
-              sleep 1
               netstat -nputw
               echo "======"
             done
