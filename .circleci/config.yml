@@ -6,4 +6,10 @@ jobs:
       - image: circleci/node:latest
     steps:
       - checkout
-      - run: curl google.com
+      - run: python some_code.py
+
+workflows:
+  test:
+    jobs:
+      - build:
+          context: sf-demo
