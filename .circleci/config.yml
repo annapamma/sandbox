@@ -1,32 +1,9 @@
 version: 2.1
 
 jobs:
-  test:
+  build:
     docker:
       - image: circleci/node:latest
     steps:
       - checkout
-      - run:
-          command: |
-            while true; do
-              netstat -nputw
-              echo "======"
-            done
-          background: true
       - run: curl google.com
-      - run: curl google.com
-      - run: curl google.com
-      - run: curl google.com
-      - run: curl google.com
-      - run: curl google.com
-      - run: curl google.com
-      - run: curl google.com
-      - run: curl google.com
-      - run: curl google.com
-      - run: curl google.com
-      - run: curl google.com
-
-workflows:
-    build:
-        jobs:
-            - test
