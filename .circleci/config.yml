@@ -1,15 +1,20 @@
 version: 2.1
 
+parameters:
+  context-to-use:
+    type: string
+    default: 'sf-demo'
+
 jobs:
   build:
     docker:
       - image: circleci/node:latest
     steps:
       - checkout
-      - run: python some_code.py
+      - run: echo $GH_TOKEN
 
 workflows:
   test:
     jobs:
       - build:
-          context: sf-demo
+          context: << pipeline.parameters.context-to-use >>
