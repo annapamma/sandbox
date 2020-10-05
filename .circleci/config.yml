@@ -1,20 +1,52 @@
 version: 2.1
 
-parameters:
-  context-to-use:
-    type: string
-    default: 'sf-demo'
-
 jobs:
-  build:
+  Build:
     docker:
       - image: circleci/node:latest
     steps:
       - checkout
-      - run: echo $GH_TOKEN
+      - run: echo ''
+  Jest:
+    docker:
+      - image: circleci/node:latest
+    steps:
+      - checkout
+      - run: echo ''
+  Lint check:
+    docker:
+      - image: circleci/node:latest
+    steps:
+      - checkout
+      - run: echo ''
+  Cypress E2E:
+    docker:
+      - image: circleci/node:latest
+    steps:
+      - checkout
+      - run: echo ''
+  Deploy:
+    docker:
+      - image: circleci/node:latest
+    steps:
+      - checkout
+      - run: echo ''
 
 workflows:
-  test:
+  basic-workflow:
     jobs:
-      - build:
-          context: << pipeline.parameters.context-to-use >>
+      - Build
+      - Jest:
+          requires:
+            - Build
+      - Lint check:
+          requires:
+            - Build
+      - Cypress E2E:
+          requires:
+            - Build
+      - Deploy:
+          requires:
+            - Jest
+            - Lint check
+            - Cypress E2E
