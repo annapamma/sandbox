@@ -12,7 +12,7 @@ jobs:
       - image: circleci/node:latest
     steps:
       - checkout
-      - run: echo sleep 300
+      - run: sleep 300
   Lint check:
     docker:
       - image: circleci/node:latest
