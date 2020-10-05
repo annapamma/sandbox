@@ -6,31 +6,31 @@ jobs:
       - image: circleci/node:latest
     steps:
       - checkout
-      - run: echo ''
+      - run: sleep 65
   Jest:
     docker:
       - image: circleci/node:latest
     steps:
       - checkout
-      - run: echo ''
+      - run: echo sleep 300
   Lint check:
     docker:
       - image: circleci/node:latest
     steps:
       - checkout
-      - run: echo ''
+      - run: sleep 90
   Cypress E2E:
     docker:
       - image: circleci/node:latest
     steps:
       - checkout
-      - run: echo ''
+      - run: sleep 110
   Deploy:
     docker:
       - image: circleci/node:latest
     steps:
       - checkout
-      - run: echo ''
+      - run: sleep 120
 
 workflows:
   basic-workflow:
