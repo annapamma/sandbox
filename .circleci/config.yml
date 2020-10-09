@@ -1,52 +1,23 @@
 version: 2.1
 
 jobs:
-  Build:
+  job_a:
     docker:
       - image: circleci/node:latest
     steps:
       - checkout
       - run: sleep 65
-  Jest:
+  job_b:
     docker:
       - image: circleci/node:latest
     steps:
       - checkout
-      - run: sleep 300
-  Lint check:
-    docker:
-      - image: circleci/node:latest
-    steps:
-      - checkout
-      - run: sleep 90
-  Cypress E2E:
-    docker:
-      - image: circleci/node:latest
-    steps:
-      - checkout
-      - run: sleep 110
-  Deploy:
-    docker:
-      - image: circleci/node:latest
-    steps:
-      - checkout
-      - run: sleep 120
+      - run: sleep 65
 
 workflows:
   basic-workflow:
     jobs:
-      - Build
-      - Jest:
+      - job_a
+      - job_b:
           requires:
-            - Build
-      - Lint check:
-          requires:
-            - Build
-      - Cypress E2E:
-          requires:
-            - Build
-      - Deploy:
-          requires:
-            - Jest
-            - Lint check
-            - Cypress E2E
+            - job_a
