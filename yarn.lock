@@ -559,6 +559,11 @@ cipher-base@^1.0.0, cipher-base@^1.0.1, cipher-base@^1.0.3:
     inherits "^2.0.1"
     safe-buffer "^5.0.1"
 
+circledemo-fizzbuzz@^0.0.11:
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/circledemo-fizzbuzz/-/circledemo-fizzbuzz-0.0.11.tgz#eeaf6b7d0124e28651cd4ec8acc7cef8cd086b36"
+  integrity sha512-fBwoSIpOuYuZA3XOTQ8lTlU7Gv2jHMuPbl2dxadBEMNaxNohMAbEZ9KuUFXO8yUjruiuLkC1wNVWybmZEcUJtg==
+
 class-utils@^0.3.5:
   version "0.3.6"
   resolved "https://registry.yarnpkg.com/class-utils/-/class-utils-0.3.6.tgz#f93369ae8b9a7ce02fd41faad0ca83033190c463"
