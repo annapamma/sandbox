@@ -4,20 +4,23 @@ jobs:
   job_a:
     docker:
       - image: circleci/node:latest
+    working_directory: /tmp
     steps:
-      - checkout
-      - run: sleep 65
-  job_b:
-    docker:
-      - image: circleci/node:latest
-    steps:
-      - checkout
-      - run: sleep 65
+      - run:
+          name: Creating Dummy Artifacts
+          command: |
+            echo "my artifact file" > /tmp/artifact-1;
+            mkdir /tmp/artifacts;
+            echo "my artifact files in a dir" > /tmp/artifacts/artifact-2;
+
+      - store_artifacts:
+          path: /tmp/artifact-1
+          destination: artifact-file
+
+      - store_artifacts:
+          path: /tmp/artifacts
 
 workflows:
   basic-workflow:
     jobs:
       - job_a
-      - job_b:
-          requires:
-            - job_a
