@@ -1,23 +1,26 @@
 version: 2.1
 
 jobs:
-  test:
+  job_a:
     docker:
       - image: circleci/node:latest
+    working_directory: /tmp
     steps:
-      - run: echo 'hello'
+      - run:
+          name: Creating Dummy Artifacts
+          command: |
+            echo "my artifact file" > /tmp/artifact-1;
+            mkdir /tmp/artifacts;
+            echo "my artifact files in a dir" > /tmp/artifacts/artifact-2;
+
+      - store_artifacts:
+          path: /tmp/artifact-1
+          destination: artifact-file
+
+      - store_artifacts:
+          path: /tmp/artifacts
 
 workflows:
-    build_not_master:
-        when:
-            condition:
-                not:
-                  - equal: [ 'pa', << pipeline.git.branch >> ]
-        jobs:
-            - test
-    build_master:
-        when:
-            condition:
-                equal: [ 'pa', << pipeline.git.branch >> ]
-        jobs:
-            - test
+  basic-workflow:
+    jobs:
+      - job_a
